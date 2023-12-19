@@ -1,6 +1,7 @@
 <?php
 // December 16 2023
 // Catherine Seymour
-inlude
+session_start();
+include "functions.php";
 
 ?>
