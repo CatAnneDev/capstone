@@ -1,0 +1,29 @@
+-- PayPal integration 2
+CREATE TABLE `transactions` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`payment_amount` decimal(7,2) NOT NULL,
+	`created` datetime NOT NULL,
+	`payer_email` varchar(255) NOT NULL,
+	`first_name` varchar(100) NOT NULL,
+	`last_name` varchar(100) NOT NULL DEFAULT '',
+	`address_street` varchar(255) NOT NULL,
+	`address_city` varchar(255) NOT NULL,
+	`address_state` varchar(255) NOT NULL,
+	`address_zip` varchar(255) NOT NULL,
+	`address_country` varchar(255) NOT NULL,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- Login
+CREATE TABLE IF NOT EXISTS `accounts` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+  	`username` varchar(50) NOT NULL,
+  	`password` varchar(255) NOT NULL,
+  	`email` varchar(100) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+INSERT INTO `accounts` (`id`, `username`, `password`, `email`) VALUES (1, 'test', '$2y$10$XJLx2XpYg7kWG5gnSWdiL.aAaEggiVFlSZIZiWtsvSehaPkuc2MIa', 'test@test.com');
+
+
