@@ -20,10 +20,22 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
   	`username` varchar(50) NOT NULL,
   	`password` varchar(255) NOT NULL,
-  	`email` varchar(100) NOT NULL,
+	`permission` varchar(50) NOT NULL,
+	`groupname` varchar(50) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO `accounts` (`id`, `username`, `password`, `email`) VALUES (1, 'test', '$2y$10$XJLx2XpYg7kWG5gnSWdiL.aAaEggiVFlSZIZiWtsvSehaPkuc2MIa', 'test@test.com');
+INSERT INTO `accounts` (`id`, `username`, `password`, `permission`, `groupname`) VALUES (1, 'testing', '$2y$10$Q07W5LhI9ugBLQrQ/pzosOiXmld5pwSGmfsTnce4484ltjhP8D6.y', 'groupadmin', 'TestGroup');
 
+-- Inventory
+CREATE TABLE IF NOT EXISTS `inventory` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+  	`product_name` varchar(50) NOT NULL,
+  	`quantity` int(11) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+INSERT INTO `inventory` (`id`, `product_name`, `quantity`) VALUES (1, 'bearings', '5');
+INSERT INTO `inventory` (`id`, `product_name`, `quantity`) VALUES (2, 'shirt', '15');
+INSERT INTO `inventory` (`id`, `product_name`, `quantity`) VALUES (3, 'panths', '25');
 

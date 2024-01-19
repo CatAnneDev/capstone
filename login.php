@@ -1,3 +1,4 @@
+
 <?=unregistered_header("Register")?>
 
 <html>
@@ -25,4 +26,4 @@
 	</body>
 </html>
 
-<?=shop_footer()?>
+<?=footer()?>

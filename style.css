@@ -3,7 +3,7 @@
 	--background-color1: #282b30;
 	--background-color2: #1e2124;
 	--primary-color1:  	#7289da;
-	--dull-primary-color: #4f62a5;
+	--primary-color2: #4f62a5;
 	--text-color: #ffffff;
 	--dull-text-color: #aaaaaa;
 	--paypal-color: #f7be3a;
@@ -11,14 +11,13 @@
 }
 */
 :root{
-	--background-color1: #ffffff;
-	--background-color2: #aaaaaa;
-	--primary-color1:  	#43548f;
-	--dull-primary-color: #5f74be;
+	--background-color1: #eeeeee;
+	--background-color2: #dddddd;
+	--background-color3: #aaaaaa;
+	--primary-color1:  	#182939;
 	--text-color: #282b30;
-	--dull-text-color: #1e2124;
 	--paypal-color: #f7be3a;
-	--dull-paypal-color: #b9730a;
+	--link-color: #43598b;
 }
 * {
 	box-sizing: border-box;
@@ -39,46 +38,17 @@ body {
 h1, h2, h3, h4, h5 {
 	color: var(--dull-text-color);
 }
+.h1-align {
+	font-size: 20px;
+}
 .content-wrapper {
 	max-width: 80%;
 	min-width: 50%;
 	margin: 0 auto;
 }
-img
-{
-	border: 2px solid var(--primary-color1);
-	padding: 2px;
-}
-img:hover {
-	animation: image_wiggle 3s linear infinite;
-	filter: saturate(1.5);
-}
-@keyframes image_wiggle {
-	0%, 7% {
-	  transform: rotateZ(0);
-	}
-	15% {
-	  transform: rotateZ(-10deg);
-	}
-	20% {
-	  transform: rotateZ(5deg);
-	}
-	25% {
-	  transform: rotateZ(-5deg);
-	}
-	30% {
-	  transform: rotateZ(3deg);
-	}
-	35% {
-	  transform: rotateZ(-2deg);
-	}
-	40%, 100% {
-	  transform: rotateZ(0);
-	}
-}
 
 header {
-	background-color: var(--background-color2);
+	background-color: var(--primary-color1);
 }
 header .content-wrapper {
 	display: flex;
@@ -100,13 +70,14 @@ header nav {
 }
 header nav a {
 	text-decoration: none;
-	color: var(--text-color);
+	color: var(--background-color1);
 	padding: 10px 10px;
 	margin: 0 10px;
+	font-weight: bold;
 }
 header nav a:hover {
 	text-decoration: underline;
-	color: var(--dull-text-color);
+	filter: brightness(0.85);
 }
 header .nav {
 	display: flex;
@@ -117,222 +88,25 @@ header .nav {
 }
 header .nav a {
 	text-decoration: none;
-	color: var(--text-color);
+	color: var(--background-color1);
 	padding: 10px 10px;
 	margin: 0 10px;
+	font-weight: bold;
 }
 header .nav a:hover {
 	text-decoration: underline;
-	color: var(--dull-text-color);
-}
-header .link-icons {
-	display: flex;
-	flex-grow: 1;
-	flex-basis: 0;
-	justify-content: flex-end;
-	align-items: center;
-	position: relative;
-}
-header .link-icons a {
-	text-decoration: none;
-	color: var(--text-color);
-	padding: 0 10px;
-}
-header .link-icons a:hover {
-	color: var(--dull-text-color);
-}
-header .link-icons a i {
-	font-size: 18px;
-}
-header .link-icons a span {
-	display: inline-block;
-	text-align: center;
-	background-color: var(--background-color1);
-	border-radius: 50%;
-	color: var(--text-color);
-	font-size: 12px;
-	line-height: 16px;
-	width: 16px;
-	height: 16px;
-	font-weight: bold;
-	position: absolute;
-	top: 22px;
-	right: 0;
-}
-main .products .products-wrapper {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: space-between;
-	padding: 40px 0 0 0;
-}
-main .products .products-wrapper .product {
-	display: block;
-	overflow: hidden;
-	text-decoration: none;
-	width: 25%;
-	margin: 2px;
-	padding-bottom: 60px;
-}
-main .products .products-wrapper .product .name {
-	display: block;
-	color: var(--text-color);
-	padding: 20px 0 2px 0;
-}
-main .products .products-wrapper .product .price {
-	display: block;
-	color: var(--dull-text-color);
-}
-main .products .products-wrapper .product:hover .name {
-	text-decoration: underline;
-}
-main > .product {
-	max-width: 40%;
-	justify-content: space-around;
-	padding: 40px 0;
-}
-main > .product > div {
-	padding-right: 20px;
-}
-main > .product h1 {
-	font-size: 30px;
-	font-weight: normal;
-	margin: 0;
-	padding: 20px 0 10px 0;
-}
-main > .product .price {
-	display: block;
-	font-size: 22px;
-	color: var(--dull-text-color);
-}
-main > .product form {
-	display: flex;
-	flex-flow: column;
-	margin: 40px 0;
-}
-main > .product form input[type="number"] {
-	width: 200px;
-	padding: 10px;
-	margin-bottom: 15px;
-	border: 1px solid var(--primary-color1);
-	color: var(--background-color1);
-	border-radius: 5px;
-}
-main > .product form input[type="submit"] {
-	background: var(--primary-color1);
-	border: 0;
-	color: var(--text-color);
-	width: 200px;
-	padding: 12px 0;
-	text-transform: uppercase;
-	font-weight: bold;
-	border-radius: 5px;
-	cursor: pointer;
-}
-main > .product form input[type="submit"]:hover {
-	background: var(--dull-primary-color);
-}
-main > .products h1 {
-	display: block;
-	font-weight: normal;
-	margin: 0;
-	padding: 30px 0 5px;
-	font-size: 24px;
-	text-align: center;
-	width: 100%;
-}
-main > .products .buttons {
-	text-align: right;
-	padding-bottom: 40px;
-}
-
-main > .products .buttons a:hover {
-	background: var(--dull-primary-color);
-}
-main .cart h1 {
-	display: block;
-	font-weight: normal;
-	margin: 0;
-	padding: 30px 0 5px;
-	font-size: 24px;
-	text-align: center;
-	width: 100%;
-}
-main .cart p {
-	text-align: center;
-}
-main .cart table {
-	border-collapse: collapse;
-	border: 1px solid var(--primary-color1);
-	width: 100%;
-}
-main .cart table thead td {
-	border: 1px solid var(--primary-color1);
-	padding: 20px;
-	font-weight: bold;
-}
-main .cart table tbody td {
-	border: 1px solid var(--primary-color1);
-	padding: 20px;
-}
-main .cart table .remove {
-	color: var(--dull-text-color);
-	padding-top: 3px;
-}
-main .cart table .remove:hover {
-	text-decoration: underline;
-}
-main .cart table .price {
-	color: var(--dull-text-color);
-}
-main .cart table a {
-	text-decoration: none;
-	color: var(--text-color);
-}
-main .cart .subtotal {
-	padding: 20px 0;
-}
-main .cart .subtotal .price {
-	color: var(--dull-text-color);
-}
-main .cart .buttons {
-	padding-bottom: 30px;
-}
-main .cart .buttons input[type="submit"] {
-	margin-left: 5px;
-	padding: 12px 20px;
-	border: 0;
-	background: var(--primary-color1);
-	color: var(--text-color);
-	font-weight: bold;
-	cursor: pointer;
-	border-radius: 5px;
-}
-main .cart .buttons input[type="submit"]:hover {
-	background: var(--dull-primary-color);
-}
-main .placeorder h1 {
-	display: block;
-	font-weight: normal;
-	margin: 0;
-	padding: 30px 0 5px;
-	font-size: 24px;
-	text-align: center;
-	width: 100%;
-}
-main .placeorder p {
-	text-align: center;
+	filter: brightness(0.85);
 }
 footer {
 	position: absolute;
 	bottom: 0;
-	background-color: var(--background-color2);
+	background-color: var(--primary-color1);
 	padding: 20px 0;
 	width: 100%;
 }
 
 
-
+/* PAYPAL DESIGN */
 .paypal {
 	padding-bottom: 40px;
 }
@@ -358,11 +132,14 @@ footer {
 	text-align: center;
 	color: var(--dull-text-color);
 }
+
+
+/* REGISTER FORM DESIGN */
 .register a, .login a {
-	color: var(--primary-color1);
+	color: var(--link-color);
 }
 .register a:hover, .login a:hover {
-	color: var(--dull-primary-color);
+	filter: brightness(0.5);
 }
 .register {
 	width: 400px;
@@ -387,11 +164,11 @@ footer {
 	justify-content: center;
 	align-items: center;
 	width: 50px;
-   height: 50px;
+    height: 50px;
 	background-color: var(--primary-color1);
-	color: var(--text-color);
+	color: var(--background-color1);
 }
-.register form input[type="password"], .register form input[type="text"], .register form input[type="email"] {
+.register form input[type="password"], .register form input[type="text"], .register form input[type="groupname"] {
 	width: 310px;
 	height: 50px;
 	border: 1px solid var(--text-color);
@@ -403,19 +180,18 @@ footer {
 	padding: 15px;
 	margin-top: 20px;
 	background-color: var(--primary-color1);
-   border: 0;
+    border: 0;
 	cursor: pointer;
 	font-weight: bold;
-	color: var(--text-color);
+	color: var(--background-color1);
 	transition: background-color 0.2s;
 }
 .register form input[type="submit"]:hover {
-  background-color: var(--dull-primary-color);
-	transition: background-color 0.2s;
+	filter: brightness(1.5);
 }
 
 
-
+/* LOGIN FORM DESIGN */
 .login {
 	width: 400px;
 	background-color: var(--background-color2);
@@ -441,7 +217,7 @@ footer {
 	width: 50px;
 	height: 50px;
 	background-color: var(--primary-color1);
-	color: var(--text-color);
+	color: var(--background-color1);
 }
 .login form input[type="password"], .login form input[type="text"] {
 	width: 310px;
@@ -462,6 +238,94 @@ footer {
 	transition: background-color 0.2s;
 }
 .login form input[type="submit"]:hover {
-  background-color: var(--dull-primary-color);
+	filter: brightness(1.5);
+}
+
+/* TABLES */
+table {
+	min-width: 75%;
+	border-collapse: collapse;
+	margin-left: auto;
+  	margin-right: auto;
+}
+th, td {
+	padding: 15px;
+	text-align:left;
+}
+th {
+	background-color: var(--background-color3);
+}
+tr:nth-child(even) {
+	background-color: var(--background-color2);
+}
+tr:nth-child(odd) {
+	background-color: var(--background-color1);
+}
+tr:hover {
+	filter: brightness(85%);
+}
+
+/* Modals */
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.flex-wrapper {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	margin: 0px 11.5% 0px 11.5%;
+	align-items: center;
+	padding:10px;
+}
+#modal-button {
+
+	width: 20%;
+	padding: 15px;
+    margin-top: 20px;
+	background-color: var(--primary-color1);
+	border: 0;
+	cursor: pointer;
+	font-weight: bold;
+	color: #ffffff;
 	transition: background-color 0.2s;
+}
+#modal-button:hover {
+	filter: brightness(1.5);
 }

@@ -43,12 +43,13 @@ echo <<<EOT
         <header>
             <div class="content-wrapper">
                 <nav>
-                    <a href="index.php?page=files">Files</a>
-                    <a href="index.php?page=profile">Profile</a>
-                    <a href="index.php?page=management">Management</a>
+                    <a href="index.php?page=inventory">Inventory</a>
+                    <a href="index.php?page=history">History</a>
+                    <a href="index.php?page=forms">Order Forms</a>
+                    <a href="index.php?page=users">Users</a>
                 </nav>
                 <h1> </h1>
-                <div class="link-icons nav">
+                <div class="nav">
                     <a href="index.php?page=logout">Logout</a>
                 </div>
             </div>
@@ -58,14 +59,12 @@ EOT;
 }
 
 // Shop footer
-function shop_footer()
+function footer()
 {
 echo <<<EOT
         </main>
         <footer>
             <div class="content-wrapper">
-                <p>Tutorial source:</p>
-                <p>Adams, D. (2019, March 22). Shopping Cart System with PHP and MySQL. CodeShack. https://codeshack.io/shopping-cart-system-php-mysql/</p>
             </div>
         </footer>
     </body>
@@ -93,6 +92,23 @@ function pdo_connect_mysql()
     }
 }
 
+
+function pdo_connect_mysqli() 
+{
+    $DATABASE_HOST = 'localhost';
+    $DATABASE_USERNAME = 'root';
+    $DATABASE_PASSWORD = '';
+    $DATABASE_NAME = 'capstone';
+
+    // if there is an error with the connection, exit and display error
+    $conn = mysqli_connect($DATABASE_HOST, $DATABASE_USERNAME, $DATABASE_PASSWORD, $DATABASE_NAME);
+    if ( mysqli_connect_errno() ) 
+    {
+        exit("Failed to connect to MySQL: " . mysqli_connect_error());
+    }
+    return $conn;
+}
+
 // redirects logged out users to the login page
 function logged_out_redirect()
 {
@@ -101,4 +117,27 @@ function logged_out_redirect()
         header('Location: index.php');
     }
 }
+
+/*
+function strip_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+function strip_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+# strip inputs of injection characters
+if ($_SERVER["REQUEST_METHOD"] == "POST")
+{
+    $username = strip_input($_POST["username"]);
+    $password = strip_input($_POST["password"]);
+}
+*/
 ?>
