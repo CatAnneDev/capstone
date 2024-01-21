@@ -18,6 +18,7 @@
 	--text-color: #282b30;
 	--paypal-color: #f7be3a;
 	--link-color: #43598b;
+	--notice-color: #FFFD74;
 }
 * {
 	box-sizing: border-box;
@@ -247,6 +248,7 @@ table {
 	border-collapse: collapse;
 	margin-left: auto;
   	margin-right: auto;
+	filter: brightness(95%);
 }
 th, td {
 	padding: 15px;
@@ -328,4 +330,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
 }
 #modal-button:hover {
 	filter: brightness(1.5);
+}
+
+.php-notice {
+	text-align: center;
+	color: var(--text-color);
+	background-color: var(--notice-color);
+	border-radius: 2px;
 }
