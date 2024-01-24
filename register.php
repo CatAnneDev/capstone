@@ -8,21 +8,12 @@
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 	</head>
 	<body>
-		<div class="register">
+		<div class="form-content">
 			<h1>Register Group</h1>
 			<p class="form-redirect">  Already have an account? <a href="index.php?page=login">Login here</a></p>
 			<form action="index.php?page=register" method="post" autocomplete="off">
-				<label for="username">
-					<i class="fas fa-user"></i>
-				</label>
 				<input type="text" name="username" placeholder="Username" id="username" required>
-				<label for="password">
-					<i class="fas fa-lock"></i>
-				</label>
 				<input type="password" name="password" placeholder="Password" id="password" required>
-				<label for="groupname">
-					<i class="fas fa-users"></i>
-				</label>
 				<input type="groupname" name="groupname" placeholder="Group Name" id="groupname" required>
 				<input type="submit" value="Register">
 			</form>

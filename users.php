@@ -8,6 +8,14 @@ if ($_SESSION["loggedin"] != true)
 {
     header("Location: index.php");
 }
+if ($_SESSION["permission"] == "customer")
+{
+    header("Location: forms.php");
+}
+if ($_SESSION["permission"] == "inquiry")
+{
+    header("Location: inventory.php");
+}
 
 # prep users table
 $groupname = $_SESSION["groupname"];
@@ -16,13 +24,13 @@ $account_rows = $conn->execute_query($sql, [$groupname]);
 
 ?>
 
-<?=shop_header("Users")?>
+<?=nav_header("Users")?>
 
 
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Register</title>
+		<title>Users</title>
 		<link href="style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 	</head>
@@ -30,30 +38,22 @@ $account_rows = $conn->execute_query($sql, [$groupname]);
         <div class="content-wrapper">
 			<div class="flex-wrapper">
 				<h1 class="h1-align">Users</h1>
-
-				<!-- Trigger/Open The Modal -->
-				<button id="modal-button">Add User</button>
-
-				<!-- The Modal -->
-				<div id="myModal" class="modal">
-
-					<!-- Modal content -->
+				
+				<!-- Groupadmin Access: Add User Modal -->
+				<?php
+				if ($_SESSION["permission"] == "groupadmin")
+				{
+					echo "<button id='modal-open'>Add User</button>";
+				}
+				?>
+				<div id="user-modal" class="modal">
 					<div class="modal-content">
-						<span class="close">&times;</span>
-						<div>
+						<span class="modal-close">&times;</span>
+						<div class="form-content">
 							<h1>Create New Group User</h1>
 							<form action="index.php?page=users" method="post" autocomplete="off">
-								<label for="username">
-									<i class="fas fa-user"></i>
-								</label>
 								<input type="text" name="username" placeholder="Username" id="username" required>
-								<label for="password">
-									<i class="fas fa-lock"></i>
-								</label>
 								<input type="text" name="password" placeholder="Password" id="password" required>
-								<label for="permission">
-									<i class="fas fa-users"></i>
-								</label>
 								<div class="col-md-4">
 									<select id="permission" name="permission" class="form-control">
 										<option value="groupadmin">Group Admin</option>
@@ -88,31 +88,31 @@ $account_rows = $conn->execute_query($sql, [$groupname]);
 <?=footer()?>
 
 <script type="text/JavaScript">
-    // Get the modal
-    var modal = document.getElementById("myModal");
+// modal script
+var modal = document.getElementById("user-modal"); // modal
+var open_btn = document.getElementById("modal-open"); // open modal button
+var close_btn = document.getElementsByClassName("modal-close")[0]; // close modal button
 
-    // Get the button that opens the modal
-    var btn = document.getElementById("modal-button");
+// when user clicks button, open the modal 
+open_btn.onclick = function() 
+{
+  modal.style.display = "block";
+}
 
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+// when user clicks on x, close modal
+close_btn.onclick = function() 
+{
+  modal.style.display = "none";
+}
 
-    // When the user clicks the button, open the modal 
-    btn.onclick = function() {
-    modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-    modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-    }
+// when user clicks anywhere outside of modal, close it
+window.onclick = function(event) 
+{
+  if (event.target == modal) 
+  {
+      modal.style.display = "none";
+  }
+}
 </script>
 
 

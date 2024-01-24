@@ -1,5 +1,4 @@
 <?php
-
 $DATABASE_HOST = "localhost";
 $DATABASE_USERNAME = "root";
 $DATABASE_PASSWORD = "";
@@ -19,7 +18,7 @@ if ( !isset($_POST["username"], $_POST["password"]) )
 }
 
 # prepare SQL prevents injection
-if ($stmt = $con->prepare("SELECT id, password, groupname FROM accounts WHERE username = ?")) 
+if ($stmt = $con->prepare("SELECT id, password, groupname, permission FROM accounts WHERE username = ?")) 
 {
 	# bind parameters (s = string)
 	$stmt->bind_param('s', $_POST["username"]);
@@ -29,7 +28,7 @@ if ($stmt = $con->prepare("SELECT id, password, groupname FROM accounts WHERE us
     # check if account exists
     if ($stmt->num_rows > 0) 
     {
-        $stmt->bind_result($id, $password, $groupname);
+        $stmt->bind_result($id, $password, $groupname, $permission);
         $stmt->fetch();
         # account exists. Check if password valid, then user is logged in and create a session
         if (password_verify($_POST["password"], $password)) 
@@ -52,7 +51,6 @@ if ($stmt = $con->prepare("SELECT id, password, groupname FROM accounts WHERE us
     {
         echo "Incorrect username and/or password!"; # invalid username
     }
-
 	$stmt->close();
 }
 ?>
