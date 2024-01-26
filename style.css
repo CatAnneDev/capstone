@@ -48,19 +48,13 @@ h1, h2, h3, h4, h5 {
 	margin: 0 auto;
 }
 
+
+/* HEADER NAV AND FOOTER BARS */
 header {
 	background-color: var(--primary-color1);
 }
 header .content-wrapper {
 	display: flex;
-}
-header h1 {
-	display: flex;
-	flex-grow: 1;
-	flex-basis: 0;
-	font-size: 20px;
-	margin: 0;
-	padding: 24px 0;
 }
 header nav {
 	display: flex;
@@ -73,7 +67,7 @@ header nav a {
 	text-decoration: none;
 	color: var(--background-color1);
 	padding: 10px 10px;
-	margin: 0 10px;
+	margin: 0 8px;
 	font-weight: bold;
 }
 header nav a:hover {
@@ -105,6 +99,20 @@ footer {
 	padding: 20px 0;
 	width: 100%;
 }
+.flex-wrapper {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	margin: 0px 11.5% 0px 11.5%;
+	align-items: center;
+	padding:10px;
+}
+.php-notice {
+	text-align: center;
+	color: var(--text-color);
+	background-color: var(--notice-color);
+	border-radius: 2px;
+}
 
 
 /* PAYPAL DESIGN */
@@ -135,32 +143,31 @@ footer {
 }
 
 
-/* REGISTER FORM DESIGN */
-.register a, .login a {
+/* FORM DESIGN - REGISTER, LOGIN, ADD INVENTORY, ADD USERS */
+.form-content a, .login a {
 	color: var(--link-color);
 }
-.register a:hover, .login a:hover {
+.form-content a:hover, .login a:hover {
 	filter: brightness(0.5);
 }
-.register {
+.form-content {
 	width: 400px;
 	background-color: var(--background-color2);
-	box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
 	margin: 100px auto;
 }
-.register h1 {
+.form-content h1 {
 	text-align: center;
 	color: var(--text-color);
 	font-size: 24px;
 	padding: 20px 0 20px 0;
 }
-.register form {
+.form-content form {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	padding-top: 20px;
 }
-.register form label {
+.form-content form label {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -169,78 +176,35 @@ footer {
 	background-color: var(--primary-color1);
 	color: var(--background-color1);
 }
-.register form input[type="password"], .register form input[type="text"], .register form input[type="groupname"] {
+.form-content form input[type="password"], .form-content form input[type="text"], .form-content form input[type="groupname"], .form-content form input[type="number"] {
 	width: 310px;
 	height: 50px;
 	border: 1px solid var(--text-color);
 	margin-bottom: 20px;
 	padding: 0 15px;
 }
-.register form input[type="submit"] {
-	width: 100%;
-	padding: 15px;
-	margin-top: 20px;
+.form-content form select {
+	width: 310px;
+	height: 50px;
+	border: 1px solid var(--text-color);
+	margin-bottom: 20px;
+	padding: 0 15px;
+}
+.form-content form input[type="submit"] {
+	width: 310px;
+	height: 50px;
+	margin-bottom: 20px;
+	padding: 0 15px;
 	background-color: var(--primary-color1);
     border: 0;
 	cursor: pointer;
 	font-weight: bold;
 	color: var(--background-color1);
-	transition: background-color 0.2s;
 }
-.register form input[type="submit"]:hover {
+.form-content form input[type="submit"]:hover {
 	filter: brightness(1.5);
 }
 
-
-/* LOGIN FORM DESIGN */
-.login {
-	width: 400px;
-	background-color: var(--background-color2);
-	box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-	margin: 100px auto;
-}
-.login h1 {
-	text-align: center;
-	color: var(--text-color);
-	font-size: 24px;
-	padding: 20px 0 20px 0;
-}
-.login form {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	padding-top: 20px;
-}
-.login form label {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 50px;
-	height: 50px;
-	background-color: var(--primary-color1);
-	color: var(--background-color1);
-}
-.login form input[type="password"], .login form input[type="text"] {
-	width: 310px;
-	height: 50px;
-	border: 1px solid var(--text-color);
-	margin-bottom: 20px;
-	padding: 0 15px;
-}
-.login form input[type="submit"] {
-	width: 100%;
-	padding: 15px;
-   margin-top: 20px;
-	background-color: var(--primary-color1);
-	border: 0;
-	cursor: pointer;
-	font-weight: bold;
-	color: #ffffff;
-	transition: background-color 0.2s;
-}
-.login form input[type="submit"]:hover {
-	filter: brightness(1.5);
-}
 
 /* TABLES */
 table {
@@ -267,58 +231,43 @@ tr:hover {
 	filter: brightness(85%);
 }
 
-/* Modals */
-body {font-family: Arial, Helvetica, sans-serif;}
 
-/* The Modal (background) */
+/* MODALS */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  /* Modal Background */
+  display: none; /* stay hidden until button pressed */
+  position: fixed;
+  z-index: 1; /* sit modal ontop of page */
+  padding-top: 100px;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0); /* fallback color */
+  background-color: rgba(0,0,0,0.4); /* black with opacity */
 }
-
-/* Modal Content */
 .modal-content {
-  background-color: #fefefe;
+  background-color: var(--background-color2);
   margin: auto;
-  padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 450px;
 }
-
-/* The Close Button */
-.close {
+.modal-close {
+  /* close button */
+  margin: 20px;
   color: #aaaaaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
-
-.close:hover,
-.close:focus {
+.modal-close:hover, .modal-close:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
 }
-.flex-wrapper {
-	display: flex;
-	flex-wrap: nowrap;
-	justify-content: space-between;
-	margin: 0px 11.5% 0px 11.5%;
-	align-items: center;
-	padding:10px;
-}
-#modal-button {
-
-	width: 20%;
+#modal-open {
+	min-width: 20%;
 	padding: 15px;
     margin-top: 20px;
 	background-color: var(--primary-color1);
@@ -328,13 +277,13 @@ body {font-family: Arial, Helvetica, sans-serif;}
 	color: #ffffff;
 	transition: background-color 0.2s;
 }
-#modal-button:hover {
+#modal-open:hover {
 	filter: brightness(1.5);
 }
-
-.php-notice {
-	text-align: center;
-	color: var(--text-color);
-	background-color: var(--notice-color);
-	border-radius: 2px;
+.modal-content > .form-content {
+	padding-top: 20px;
+	margin: 50px auto;
+}
+.modal-content > .form-content h1 {
+	padding: 0;
 }

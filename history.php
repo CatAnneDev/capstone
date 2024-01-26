@@ -18,7 +18,7 @@ if ($_SESSION["loggedin"] != true)
 
 ?>
 
-<?=shop_header("History")?>
+<?=nav_header("History")?>
 
 <div class="content-wrapper">
     <h1 class="h1-align">History</h1>

@@ -27,8 +27,8 @@ function unregistered_header($title)
     EOT;
 }
 
-// Shop header, if user is logged in
-function shop_header($title) 
+// Navigation header, if user is logged in
+function nav_header($title) 
 {
 echo <<<EOT
 <!DOCTYPE html>
@@ -72,26 +72,7 @@ echo <<<EOT
 EOT;
 }
 
-// connect to MySQL database named shoppingcart via localhost
-function pdo_connect_mysql() 
-{
-    $DATABASE_HOST = 'localhost';
-    $DATABASE_USERNAME = 'root';
-    $DATABASE_PASSWORD = '';
-    $DATABASE_NAME = 'capstone';
-
-    // if there is an error with the connection, exit and display error
-    try 
-    {
-    	return new PDO('mysql:host=' . $DATABASE_HOST . ';dbname=' . $DATABASE_NAME . ';charset=utf8', $DATABASE_USERNAME, $DATABASE_PASSWORD);
-        echo "Connection to database successful.";
-    } 
-    catch (PDOException $exception) 
-    {
-    	exit('Failed to connect to database!');
-    }
-}
-
+# connect to MySQL database named shoppingcart via localhost
 
 function pdo_connect_mysqli() 
 {
@@ -100,7 +81,7 @@ function pdo_connect_mysqli()
     $DATABASE_PASSWORD = '';
     $DATABASE_NAME = 'capstone';
 
-    // if there is an error with the connection, exit and display error
+    # if there is an error with the connection, exit and display error
     $conn = mysqli_connect($DATABASE_HOST, $DATABASE_USERNAME, $DATABASE_PASSWORD, $DATABASE_NAME);
     if ( mysqli_connect_errno() ) 
     {

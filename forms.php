@@ -17,7 +17,7 @@ if ($_SESSION["loggedin"] != true)
 
 ?>
 
-<?=shop_header("Order Forms")?>
+<?=nav_header("Order Forms")?>
 
 <div class="content-wrapper">
     <h1 class="h1-align">Order Forms</h1>
