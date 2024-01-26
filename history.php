@@ -10,8 +10,11 @@ if ($_SESSION["loggedin"] != true)
 }
 
 # purchase orders prep
-
-# delivery orders prep
+# for unique bath nuber in groupnae, order by largest ID first
+#   for unique entry in results
+#   print
+#   add pending -> coplete button that updates inentoryphp
+# spae out
 
 ?>
 
