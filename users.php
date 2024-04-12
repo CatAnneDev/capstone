@@ -17,6 +17,7 @@ if ($_SESSION["permission"] == "inquiry")
     header("Location: inventory.php");
 }
 
+
 # prep users table
 $groupname = $_SESSION["groupname"];
 $sql = "SELECT * FROM accounts WHERE groupname = ?";
@@ -73,11 +74,13 @@ $account_rows = $conn->execute_query($sql, [$groupname]);
                 <tr>
                     <th>Username</th>
                     <th>Permission</th>
+					<th> </th>
                 </tr>
                 <?php foreach($account_rows as $row): ?>
                 <tr>
                     <td><?= htmlspecialchars($row['username']) ?></td>
                     <td><?= htmlspecialchars($row['permission']) ?></td>
+					<td><a href='delete_user.php?id=<?= htmlspecialchars($row['id']) ?>'>Delete Me</a></td>
                 </tr>
                 <?php endforeach ?>
             </table>
