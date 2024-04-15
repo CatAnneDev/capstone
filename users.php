@@ -2,6 +2,7 @@
 # table of users (view)
 # table of users (edit and remove options)
 # add user button
+# inquiry (no view), customer (no view), manager (view only), groupadmin (add any rank / delete non-admins), site admin
 
 # redirect non-users to login
 if ($_SESSION["loggedin"] != true)
@@ -10,11 +11,11 @@ if ($_SESSION["loggedin"] != true)
 }
 if ($_SESSION["permission"] == "customer")
 {
-    header("Location: forms.php");
+    header("Location: index.php?page=forms");
 }
-if ($_SESSION["permission"] == "inquiry")
+if ($_SESSION["permission"] == "inquiry" OR $_SESSION["permission"] == "customer")
 {
-    header("Location: inventory.php");
+    header("Location: index.php?page=inventory");
 }
 
 
@@ -74,13 +75,26 @@ $account_rows = $conn->execute_query($sql, [$groupname]);
                 <tr>
                     <th>Username</th>
                     <th>Permission</th>
-					<th> </th>
+					<?php if($_SESSION["permission"] == "groupadmin"){echo "<th> </th>";} ?>
                 </tr>
                 <?php foreach($account_rows as $row): ?>
                 <tr>
                     <td><?= htmlspecialchars($row['username']) ?></td>
                     <td><?= htmlspecialchars($row['permission']) ?></td>
-					<td><a href='delete_user.php?id=<?= htmlspecialchars($row['id']) ?>'>Delete Me</a></td>
+					<?php if($_SESSION["permission"] == "groupadmin")
+						{
+							$user_id = $row['id'];
+							if($row['permission'] != "groupadmin")
+							{
+								echo <<<EOT
+								<td><a href="delete_user.php?id=$user_id">Delete</a></td>
+								EOT;
+							}
+							else
+							{
+								echo "<td> </td>";
+							}
+						} ?>
                 </tr>
                 <?php endforeach ?>
             </table>
