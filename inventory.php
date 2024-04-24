@@ -21,22 +21,22 @@ $inventory_rows = $result->fetch_all(MYSQLI_ASSOC);
 <div class="content-wrapper">
     <div class="flex-wrapper">
       <h1 class="h1-align">Inventory</h1>
+      <!-- Search Bar -->
+      <div class="searchbar">
+        <form action="" method="POST">
+            <div>
+                <input type="text" name="search" value="<?php if(isset($_POST['search'])){echo $_POST['search']; } ?>" placeholder="Search Inventory">
+                <button type="submit">Search</button>
+            </div>
+        </form>
+      </div>
     </div>
 
-    <!-- Search Bar -->
-    <div class="searchbar">
-      <form action="" method="POST">
-          <div>
-              <input type="text" name="search" value="<?php if(isset($_POST['search'])){echo $_POST['search']; } ?>" placeholder="Search Inventory">
-              <button type="submit">Search</button>
-          </div>
-      </form>
-    </div>
     <!-- Search Results and Show Results Table -->
       <?php 
           if(isset($_POST['search']))
           {
-              $filtervalues = $_POST['search'];
+              $filtervalues = htmlspecialchars($_POST['search']);
               $sql_query = "SELECT * FROM inventory WHERE CONCAT(id,product_name) LIKE '%$filtervalues%' ";
               $sql_query_run = mysqli_query($conn, $sql_query);
 

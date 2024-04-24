@@ -25,10 +25,12 @@ $history_orders = $conn->execute_query($sql, [$groupname]);
 <?=nav_header("History")?>
 
 <div class="content-wrapper">
-    <h1 class="h1-align">History</h1>
+    <div class="flex-wrapper">
+        <h1 class="h1-align">History</h1>
+    </div>
     <?php foreach($history_orders as $row): ?>
         <!-- set prevvious batcch nummber. If new == previous, make a new TD, else mmake new table -->
-        <p>B# <?= htmlspecialchars($row['batch_number']) ?></p>
+        <p class="flex-wrapper">B# <?= htmlspecialchars($row['batch_number']) ?></p>
         <table>
             <tr>
                 <th>Product Name</th>
