@@ -1,77 +1,76 @@
 <?php
 require_once('index.php');
-# view inventory table
-# edit and remove buttons on each row
-# export to xlsx
 
-# redirect non-users to login
+// redirect non-users to login
 if ($_SESSION["loggedin"] != true)
 {
     header("Location: index.php");
 }
 
-# prep inventory table
+// prep inventory table
 $result = mysqli_query($conn, "SELECT * FROM inventory");
 $inventory_rows = $result->fetch_all(MYSQLI_ASSOC);
-
 ?>
+
 
 <?=nav_header("Inventory")?>
 
+
 <div class="content-wrapper">
     <div class="flex-wrapper">
-      <h1 class="h1-align">Inventory</h1>
-      <!-- Search Bar -->
-      <div class="searchbar">
-        <form action="" method="POST">
-            <div>
-                <input type="text" name="search" value="<?php if(isset($_POST['search'])){echo $_POST['search']; } ?>" placeholder="Search Inventory">
-                <button type="submit">Search</button>
-            </div>
-        </form>
-      </div>
+        <h1 class="h1-align">Inventory</h1>
+        
+        <!-- Search Bar -->
+        <div class="searchbar">
+            <form action="" method="POST">
+                <div>
+                    <input type="text" name="search" value="<?php if(isset($_POST['search'])){echo $_POST['search']; } ?>" placeholder="Search Inventory">
+                    <button type="submit">Search</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <!-- Search Results and Show Results Table -->
-      <?php 
-          if(isset($_POST['search']))
-          {
-              $filtervalues = htmlspecialchars($_POST['search']);
-              $sql_query = "SELECT * FROM inventory WHERE CONCAT(id,product_name) LIKE '%$filtervalues%' ";
-              $sql_query_run = mysqli_query($conn, $sql_query);
+    <?php 
+        if(isset($_POST['search']))
+        {
+            $filtervalues = htmlspecialchars($_POST['search']);
+            $sql_query = "SELECT * FROM inventory WHERE CONCAT(id,product_name) LIKE '%$filtervalues%' ";
+            $sql_query_run = mysqli_query($conn, $sql_query);
 
-              if(mysqli_num_rows($sql_query_run) > 0)
-              {
+            if(mysqli_num_rows($sql_query_run) > 0)
+            {
                 ?>
                 <table>
                 <tr>
-                  <th>ID</th>
-                  <th>Product Name</th>
-                  <th>Quantity</th>
+                    <th>ID</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
                 </tr>
                 <?php
-                  foreach($sql_query_run as $row)
-                  {
-                      ?>
-                      <tr>
+                    foreach($sql_query_run as $row)
+                    {
+                        ?>
+                        <tr>
                         <td><?= htmlspecialchars($row['id']) ?></td>
                         <td><?= htmlspecialchars($row['product_name']) ?></td>
                         <td><?= htmlspecialchars($row['quantity']) ?></td>
-                      </tr>
-                      <?php
-                  }
-              }
-              else
-              {
-                  ?>
-                      <tr>
-                          <td colspan="3">Searched Record Not Found</td>
-                      </tr>
-                  <?php
-              }
-          }
-          else
-          {
+                        </tr>
+                        <?php
+                    }
+            }
+            else
+            {
+                ?>
+                    <tr>
+                        <td colspan="3">Searched Record Not Found</td>
+                    </tr>
+                <?php
+            }
+        }
+        else
+        {
             ?>
             <!-- Inventory Table if No Search -->
             <table>
@@ -89,12 +88,10 @@ $inventory_rows = $result->fetch_all(MYSQLI_ASSOC);
                 <?php endforeach ?>
             </table>
             <?php
-          }
-      ?>
+        }
+    ?>
     </table>
-    
-  </div>
 </div>
 
-<?=footer()?>
 
+<?=footer()?>

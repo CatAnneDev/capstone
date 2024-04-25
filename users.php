@@ -1,12 +1,12 @@
 <?php
-# redirect non-users to login
+// redirect non-users to login
 if ($_SESSION["loggedin"] != true)
 {
     header("Location: index.php");
 }
 
-# (manager) view a table of users
-# (groupadmin) add or remove users below groupadmin
+// (manager) view a table of users
+// (groupadmin) add or remove users below groupadmin
 if ($_SESSION["permission"] == "customer")
 {
     header("Location: index.php?page=forms");
@@ -16,7 +16,7 @@ if ($_SESSION["permission"] == "inquiry")
     header("Location: index.php?page=inventory");
 }
 
-# prep users table
+// prep users table
 $groupname = $_SESSION["groupname"];
 $sql = "SELECT * FROM accounts WHERE groupname = ?";
 $account_rows = $conn->execute_query($sql, [$groupname]);
@@ -45,7 +45,7 @@ $account_rows = $conn->execute_query($sql, [$groupname]);
 					echo "<button id='modal-open'>Add User</button>";
 				}
 				?>
-				<div id="user-modal" class="modal">
+				<div id="modal-box" class="modal">
 					<div class="modal-content">
 						<span class="modal-close">&times;</span>
 						<div class="form-content">
@@ -105,7 +105,7 @@ $account_rows = $conn->execute_query($sql, [$groupname]);
 
 <script type="text/JavaScript">
 	// modal, open modal button, and close modal button
-	var modal = document.getElementById("user-modal");
+	var modal = document.getElementById("modal-box");
 	var open_button = document.getElementById("modal-open");
 	var close_button = document.getElementsByClassName("modal-close")[0];
 
@@ -166,7 +166,8 @@ if (strlen($_POST["password"]) < 5 || strlen($_POST["password"]) > 20)
 }
 
 // prepare statement to avoid injection
-if ($sql_query = $con->prepare("SELECT id, password, permission, groupname FROM accounts WHERE username = ?")) {
+if ($sql_query = $con->prepare("SELECT id, password, permission, groupname FROM accounts WHERE username = ?")) 
+{
 	// bind parameters (s = string), 
 	$sql_query->bind_param("s", $_POST["username"]);
 	$sql_query->execute();
@@ -191,17 +192,16 @@ if ($sql_query = $con->prepare("SELECT id, password, permission, groupname FROM 
 		} 
 		else 
 		{
-			// something is wrong with the $sql_query
-			echo "MySQL statement failed to prepare";
+            // something is wrong with the SQL statement, check that MySQL table exists will all fields.
+			echo "MySQL statement failed to prepare. Check that columns align with parameters.";
 		}
 	}
 	$sql_query->close();
 } 
 else 
 {
-	// something is wrong with the $sql_query
-	echo "MySQL statement failed to prepare";
+    // something is wrong with the SQL statement, check that MySQL table exists will all fields.
+	echo "MySQL statement failed to prepare. Check that columns align with parameters.";
 }
 $con->close();
 ?>
-

@@ -44,8 +44,6 @@ if (!isset($_POST["username"], $_POST["password"], $_POST["groupname"]))
 {
 	exit("");
 }
-
-// FORM VALIDATION
 // a form value must not be empty
 if (empty($_POST["username"]) || empty($_POST["password"]) || empty($_POST["groupname"])) 
 {
@@ -68,7 +66,8 @@ if (strlen($_POST["password"]) < 5 || strlen($_POST["password"]) > 20)
 }
 
 // check if account with inputted username already exists
-if ($sql_query = $con->prepare("SELECT id, password, permission, groupname FROM accounts WHERE username = ?")) {
+if ($sql_query = $con->prepare("SELECT id, password, permission, groupname FROM accounts WHERE username = ?")) 
+{
 	// bind parameters (s = string), 
 	$sql_query->bind_param("s", $_POST["username"]);
 	$sql_query->execute();
@@ -81,10 +80,10 @@ if ($sql_query = $con->prepare("SELECT id, password, permission, groupname FROM 
 	} 
 	else 
 	{
-		// Username doesn"t exists, insert new account
+		// username does not exist, insert new account
 		if ($sql_query = $con->prepare("INSERT INTO accounts (username, password, permission, groupname) VALUES (?, ?, ?, ?)")) 
 		{
-			// We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
+			// hash the passwords so they are not plaintext in database
 			$password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 			$permission = "groupadmin";
 			$sql_query->bind_param("ssss", $_POST["username"], $password, $permission, $_POST["groupname"]);
@@ -93,7 +92,7 @@ if ($sql_query = $con->prepare("SELECT id, password, permission, groupname FROM 
 		} 
 		else 
 		{
-			// Something is wrong with the SQL statement, so you must check to make sure your accounts table exists with all three fields.
+			// something is wrong with the SQL statement, check that MySQL table exists will all fields.
 			echo "MySQL statement failed to prepare";
 		}
 	}
@@ -101,8 +100,8 @@ if ($sql_query = $con->prepare("SELECT id, password, permission, groupname FROM 
 } 
 else 
 {
-	// Something is wrong with the SQL statement, so you must check to make sure your accounts table exists with all 3 fields.
-	echo "MySQL statement failed to prepare";
+    // something is wrong with the SQL statement, check that MySQL table exists will all fields.
+    echo "MySQL statement failed to prepare";
 }
 $con->close();
 ?>

@@ -3,7 +3,7 @@
 # show history
 # export to xlsx
 
-# redirect non-users to login
+// redirect non-users to login
 if ($_SESSION["loggedin"] != true)
 {
     header("Location: index.php");
@@ -35,18 +35,19 @@ if ($_SESSION["loggedin"] != true)
         </form>
       </div>
     </div>
+
     <!-- Search Results and Show Results Table -->
     <?php 
-          if(isset($_POST['search']))
-          {
-              $filtervalues = htmlspecialchars($_POST['search']);
-              $sql_query = "SELECT * FROM history WHERE CONCAT(id,batch_number,product_name,quantity,status) LIKE '%$filtervalues%' ";
-              $sql_query_run = mysqli_query($conn, $sql_query);
+        if(isset($_POST['search']))
+        {
+            $filtervalues = htmlspecialchars($_POST['search']);
+            $sql_query = "SELECT * FROM history WHERE CONCAT(id,batch_number,product_name,quantity,status) LIKE '%$filtervalues%' ";
+            $sql_query_run = mysqli_query($conn, $sql_query);
 
-              if(mysqli_num_rows($sql_query_run) > 0)
-              {
+            if(mysqli_num_rows($sql_query_run) > 0)
+            {
                 foreach($sql_query_run as $row)
-                  {
+                {
                     ?>
                     <p class="flex-wrapper">B# <?= htmlspecialchars($row['batch_number']) ?></p>
                     <table>
@@ -64,19 +65,19 @@ if ($_SESSION["loggedin"] != true)
                         </tr>
                     </table>
                     <?php
-                    }
-              }
-              else
-              {
-                  ?>
-                      <tr>
-                          <td colspan="3">Searched Record Not Found</td>
-                      </tr>
-                  <?php
-              }
-          }
-          else
-          {
+                }
+            }
+            else
+            {
+                ?>
+                    <tr>
+                        <td colspan="3">Searched Record Not Found</td>
+                    </tr>
+                <?php
+            }
+        }
+        else
+        {
             // History if No Search
             $groupname = $_SESSION["groupname"];
             $sql = "SELECT * FROM history WHERE groupname = ?";
@@ -100,8 +101,8 @@ if ($_SESSION["loggedin"] != true)
                 </table>
             <?php endforeach ?>
             <?php
-          }
-      ?>
+        }
+        ?>
     </table>
 </div>
 

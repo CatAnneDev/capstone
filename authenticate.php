@@ -5,32 +5,32 @@ $DATABASE_PASSWORD = "";
 $DATABASE_NAME = "capstone";
 
 $con = mysqli_connect($DATABASE_HOST, $DATABASE_USERNAME, $DATABASE_PASSWORD, $DATABASE_NAME);
-# if connection error, exit and display error
+// if connection error, exit and display error
 if ( mysqli_connect_errno() ) 
 {
 	exit("Failed to connect to MySQL: " . mysqli_connect_error());
 }
 
-# check if data submitted exists from login form
+// check if data submitted exists from form
 if ( !isset($_POST["username"], $_POST["password"]) ) 
 {
 	exit("Please fill both the username and password fields!");
 }
 
-# prepare SQL prevents injection
+// prepare SQL prevents injection
 if ($sql_query = $con->prepare("SELECT id, password, groupname, permission FROM accounts WHERE username = ?")) 
 {
-	# bind parameters (s = string)
+	// bind parameters (s = string)
 	$sql_query->bind_param('s', $_POST["username"]);
 	$sql_query->execute();
 	$sql_query->store_result();
 
-    # check if account exists
+    // check if account exists
     if ($sql_query->num_rows > 0) 
     {
         $sql_query->bind_result($id, $password, $groupname, $permission);
         $sql_query->fetch();
-        # account exists. Check if password valid, then user is logged in and create a session
+        // account exists. Check if password valid, then user is logged in and create a session
         if (password_verify($_POST["password"], $password)) 
         {
             session_regenerate_id();
@@ -40,16 +40,18 @@ if ($sql_query = $con->prepare("SELECT id, password, groupname, permission FROM 
             $_SESSION["permission"] = $permission;
             $_SESSION["groupname"] = $groupname;
             echo "Welcome " . $_SESSION["name"] . "!";
-            header("location: index.php?page=inventory"); # redirect
+            header("location: index.php?page=inventory"); // redirect
         } 
         else 
         {
-            echo "Incorrect username and/or password!"; # invalid password
+            // invalid password
+            echo "Incorrect username and/or password!";
         }
     } 
     else 
     {
-        echo "Incorrect username and/or password!"; # invalid username
+        // invalid username
+        echo "Incorrect username and/or password!";
     }
 	$sql_query->close();
 }

@@ -3,7 +3,9 @@
     
     $result = mysql_query("SELECT id, name FROM form_delivery");
 
-    while ($row = mysql_fetch_array($result, MYSQL_NUM)) {
+    // remmove?
+    while ($row = mysql_fetch_array($result, MYSQL_NUM)) 
+    {
         printf("ID: %s  Name: %s", $row[0], $row[1]);  
     }
 
@@ -13,11 +15,13 @@
         $sql_query->execute();
     }
 
-    if (mysqli_query($conn, $sql)) {
+    if (mysqli_query($conn, $sql)) 
+    {
         header('Location: index.php?page=log_confirmation'); 
         exit;
-    } else {
+    } 
+    else 
+    {
         echo "Error: adding history record fail";
-    }
-    
+    } 
 ?>

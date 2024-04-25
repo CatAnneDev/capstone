@@ -59,7 +59,8 @@ echo <<<EOT
 EOT;
 }
 
-// Shop footer
+
+// site footer
 function footer()
 {
 echo <<<EOT
@@ -73,8 +74,7 @@ echo <<<EOT
 EOT;
 }
 
-# connect to MySQL database named shoppingcart via localhost
-
+// connect to MySQL database named capstone in localhost
 function pdo_connect_mysqli() 
 {
     $DATABASE_HOST = 'localhost';
@@ -91,14 +91,6 @@ function pdo_connect_mysqli()
     return $conn;
 }
 
-// redirects logged out users to the login page
-function logged_out_redirect()
-{
-    if ($_SESSION['loggedin'] != true)
-    {
-        header('Location: index.php');
-    }
-}
 
 /*
 function strip_input($data)

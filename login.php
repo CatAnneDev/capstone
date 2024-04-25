@@ -1,5 +1,5 @@
-
 <?=unregistered_header("Register")?>
+
 
 <html>
 	<head>
@@ -19,5 +19,6 @@
 		</div>
 	</body>
 </html>
+
 
 <?=footer()?>
