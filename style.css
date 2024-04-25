@@ -312,3 +312,17 @@ tr:hover {
 	font-weight: bold;
 	color: var(--background-color1);
 }
+.submit_order {
+	float: right;
+}
+.submit_order button {
+	width: 100px;
+	height: 50px;
+	margin-bottom: 20px;
+	padding: 0 15px;
+	background-color: var(--primary-color1);
+    border: 0;
+	cursor: pointer;
+	font-weight: bold;
+	color: var(--background-color1);
+}

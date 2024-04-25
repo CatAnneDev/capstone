@@ -73,7 +73,7 @@ $inventory_rows = $result->fetch_all(MYSQLI_ASSOC);
           else
           {
             ?>
-            <!-- Inventory Table if No Results -->
+            <!-- Inventory Table if No Search -->
             <table>
                 <tr>
                     <th>ID</th>

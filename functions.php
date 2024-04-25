@@ -45,7 +45,8 @@ echo <<<EOT
                 <nav>
                     <a href="index.php?page=inventory">Inventory</a>
                     <a href="index.php?page=history">History</a>
-                    <a href="index.php?page=forms">Order Forms</a>
+                    <a href="index.php?page=form_delivery">Delivery Form</a>
+                    <a href="index.php?page=form_purchase">Purchase Form</a>
                     <a href="index.php?page=users">Users</a>
                 </nav>
                 <h1> </h1>
