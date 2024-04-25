@@ -90,17 +90,17 @@ $form_rows = $conn->execute_query($sql, [$groupname]);
 <script type="text/JavaScript">
 // modal script
 var modal = document.getElementById("user-modal"); // modal
-var open_btn = document.getElementById("modal-open"); // open modal button
-var close_btn = document.getElementsByClassName("modal-close")[0]; // close modal button
+var open_button = document.getElementById("modal-open"); // open modal button
+var close_button = document.getElementsByClassName("modal-close")[0]; // close modal button
 
 // when user clicks button, open the modal 
-open_btn.onclick = function() 
+open_button.onclick = function() 
 {
   modal.style.display = "block";
 }
 
 // when user clicks on x, close modal
-close_btn.onclick = function() 
+close_button.onclick = function() 
 {
   modal.style.display = "none";
 }
@@ -145,24 +145,24 @@ if (strlen($_POST["product_name"]) < 3 || strlen($_POST["product_name"]) > 30)
 }
 
 // check if account with inputted username already exists
-if ($stmt = $con->prepare("SELECT id, product_name, quantity, groupname FROM form_delivery WHERE product_name = ?")) {
+if ($sql_query = $con->prepare("SELECT id, product_name, quantity, groupname FROM form_delivery WHERE product_name = ?")) {
 	// bind parameters (s = string), 
-	$stmt->bind_param("s", $_POST["product_name"]);
-	$stmt->execute();
-	$stmt->store_result();
+	$sql_query->bind_param("s", $_POST["product_name"]);
+	$sql_query->execute();
+	$sql_query->store_result();
 
 	// check if an account already exists under inputted username
-	if ($stmt->num_rows > 0) 
+	if ($sql_query->num_rows > 0) 
 	{
 		echo "This username already exists, please choose another.";
 	} 
 	else 
 	{
 		// Product doesn't exist, insert new product
-		if ($stmt = $con->prepare("INSERT INTO form_delivery (product_name, quantity, groupname) VALUES (?, ?, ?)")) 
+		if ($sql_query = $con->prepare("INSERT INTO form_delivery (product_name, quantity, groupname) VALUES (?, ?, ?)")) 
 		{
-			$stmt->bind_param("sis", $_POST["product_name"], $_POST["quantity"], $_SESSION["groupname"]);
-			$stmt->execute();
+			$sql_query->bind_param("sis", $_POST["product_name"], $_POST["quantity"], $_SESSION["groupname"]);
+			$sql_query->execute();
 
 			echo '<p class="php-notice">New product added.</p>';
 			
@@ -173,7 +173,7 @@ if ($stmt = $con->prepare("SELECT id, product_name, quantity, groupname FROM for
 			echo "MySQL statement failed to prepare";
 		}
 	}
-	$stmt->close();
+	$sql_query->close();
 } 
 else 
 {

@@ -68,27 +68,27 @@ if (strlen($_POST["password"]) < 5 || strlen($_POST["password"]) > 20)
 }
 
 // check if account with inputted username already exists
-if ($stmt = $con->prepare("SELECT id, password, permission, groupname FROM accounts WHERE username = ?")) {
+if ($sql_query = $con->prepare("SELECT id, password, permission, groupname FROM accounts WHERE username = ?")) {
 	// bind parameters (s = string), 
-	$stmt->bind_param("s", $_POST["username"]);
-	$stmt->execute();
-	$stmt->store_result();
+	$sql_query->bind_param("s", $_POST["username"]);
+	$sql_query->execute();
+	$sql_query->store_result();
 
 	// check if an account already exists under inputted username
-	if ($stmt->num_rows > 0) 
+	if ($sql_query->num_rows > 0) 
 	{
 		echo "This username already exists, please choose another.";
 	} 
 	else 
 	{
 		// Username doesn"t exists, insert new account
-		if ($stmt = $con->prepare("INSERT INTO accounts (username, password, permission, groupname) VALUES (?, ?, ?, ?)")) 
+		if ($sql_query = $con->prepare("INSERT INTO accounts (username, password, permission, groupname) VALUES (?, ?, ?, ?)")) 
 		{
 			// We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
 			$password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 			$permission = "groupadmin";
-			$stmt->bind_param("ssss", $_POST["username"], $password, $permission, $_POST["groupname"]);
-			$stmt->execute();
+			$sql_query->bind_param("ssss", $_POST["username"], $password, $permission, $_POST["groupname"]);
+			$sql_query->execute();
 			echo "You have successfully registered. You can now login.";
 		} 
 		else 
@@ -97,7 +97,7 @@ if ($stmt = $con->prepare("SELECT id, password, permission, groupname FROM accou
 			echo "MySQL statement failed to prepare";
 		}
 	}
-	$stmt->close();
+	$sql_query->close();
 } 
 else 
 {

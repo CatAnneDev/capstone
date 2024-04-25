@@ -1,30 +1,27 @@
 <?php
-# table of users (view)
-# table of users (edit and remove options)
-# add user button
-# inquiry (no view), customer (no view), manager (view only), groupadmin (add any rank / delete non-admins), site admin
-
 # redirect non-users to login
 if ($_SESSION["loggedin"] != true)
 {
     header("Location: index.php");
 }
+
+# (manager) view a table of users
+# (groupadmin) add or remove users below groupadmin
 if ($_SESSION["permission"] == "customer")
 {
     header("Location: index.php?page=forms");
 }
-if ($_SESSION["permission"] == "inquiry" OR $_SESSION["permission"] == "customer")
+if ($_SESSION["permission"] == "inquiry")
 {
     header("Location: index.php?page=inventory");
 }
-
 
 # prep users table
 $groupname = $_SESSION["groupname"];
 $sql = "SELECT * FROM accounts WHERE groupname = ?";
 $account_rows = $conn->execute_query($sql, [$groupname]);
-
 ?>
+
 
 <?=nav_header("Users")?>
 
@@ -81,7 +78,8 @@ $account_rows = $conn->execute_query($sql, [$groupname]);
                 <tr>
                     <td><?= htmlspecialchars($row['username']) ?></td>
                     <td><?= htmlspecialchars($row['permission']) ?></td>
-					<?php if($_SESSION["permission"] == "groupadmin")
+					<?php 
+					if($_SESSION["permission"] == "groupadmin")
 						{
 							$user_id = $row['id'];
 							if($row['permission'] != "groupadmin")
@@ -94,7 +92,8 @@ $account_rows = $conn->execute_query($sql, [$groupname]);
 							{
 								echo "<td> </td>";
 							}
-						} ?>
+						} 
+					?>
                 </tr>
                 <?php endforeach ?>
             </table>
@@ -105,55 +104,51 @@ $account_rows = $conn->execute_query($sql, [$groupname]);
 <?=footer()?>
 
 <script type="text/JavaScript">
-// modal script
-var modal = document.getElementById("user-modal"); // modal
-var open_btn = document.getElementById("modal-open"); // open modal button
-var close_btn = document.getElementsByClassName("modal-close")[0]; // close modal button
+	// modal, open modal button, and close modal button
+	var modal = document.getElementById("user-modal");
+	var open_button = document.getElementById("modal-open");
+	var close_button = document.getElementsByClassName("modal-close")[0];
 
-// when user clicks button, open the modal 
-open_btn.onclick = function() 
-{
-  modal.style.display = "block";
-}
-
-// when user clicks on x, close modal
-close_btn.onclick = function() 
-{
-  modal.style.display = "none";
-}
-
-// when user clicks anywhere outside of modal, close it
-window.onclick = function(event) 
-{
-  if (event.target == modal) 
-  {
-      modal.style.display = "none";
-  }
-}
+	// open the modal on user click
+	open_button.onclick = function() 
+	{
+		modal.style.display = "block";
+	}
+	// close modal on user clicks x
+	close_button.onclick = function() 
+	{
+		modal.style.display = "none";
+	}
+	// close modal on user clicks outside of modal
+	window.onclick = function(event) 
+	{
+		if (event.target == modal) 
+		{
+			modal.style.display = "none";
+		}
+	}
 </script>
 
 
 <?php
-
+// PHP to add user to MySQL accounts table
 $DATABASE_HOST = "localhost";
 $DATABASE_USERNAME = "root";
 $DATABASE_PASSWORD = "";
 $DATABASE_NAME = "capstone";
 
-// if there is an error with the connection, exit and display error
+// if there is an error with connection, exit and display error
 $con = mysqli_connect($DATABASE_HOST, $DATABASE_USERNAME, $DATABASE_PASSWORD, $DATABASE_NAME);
 if (mysqli_connect_errno()) 
 {
 	exit("Failed to connect to MySQL: " . mysqli_connect_error());
 }
 
-// check if data submitted exists from register form
+// check if data submitted exists from user form
 if (!isset($_POST["username"], $_POST["password"], $_POST["permission"])) 
 {
 	exit("");
 }
-
-// FORM VALIDATION
 // a form value must not be empty
 if (empty($_POST["username"]) || empty($_POST["password"]) || empty($_POST["permission"])) 
 {
@@ -170,42 +165,41 @@ if (strlen($_POST["password"]) < 5 || strlen($_POST["password"]) > 20)
 	exit("Password must be 5-20 characters long.");
 }
 
-// check if account with inputted username already exists
-if ($stmt = $con->prepare("SELECT id, password, permission, groupname FROM accounts WHERE username = ?")) {
+// prepare statement to avoid injection
+if ($sql_query = $con->prepare("SELECT id, password, permission, groupname FROM accounts WHERE username = ?")) {
 	// bind parameters (s = string), 
-	$stmt->bind_param("s", $_POST["username"]);
-	$stmt->execute();
-	$stmt->store_result();
+	$sql_query->bind_param("s", $_POST["username"]);
+	$sql_query->execute();
+	$sql_query->store_result();
 
 	// check if an account already exists under inputted username
-	if ($stmt->num_rows > 0) 
+	if ($sql_query->num_rows > 0) 
 	{
 		echo "This username already exists, please choose another.";
 	} 
 	else 
 	{
-		// Username doesn"t exists, insert new account
-		if ($stmt = $con->prepare("INSERT INTO accounts (username, password, permission, groupname) VALUES (?, ?, ?, ?)")) 
+		// username does not exist, insert new account
+		if ($sql_query = $con->prepare("INSERT INTO accounts (username, password, permission, groupname) VALUES (?, ?, ?, ?)")) 
 		{
-			// We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
+			// hash the password instead of storing plaintext in database
 			$password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-			$stmt->bind_param("ssss", $_POST["username"], $password, $_POST["permission"], $_SESSION["groupname"]);
-			$stmt->execute();
+			$sql_query->bind_param("ssss", $_POST["username"], $password, $_POST["permission"], $_SESSION["groupname"]);
+			$sql_query->execute();
 
 			echo '<p class="php-notice">New user created.</p>';
-			
 		} 
 		else 
 		{
-			// Something is wrong with the SQL statement, so you must check to make sure your accounts table exists with all three fields.
+			// something is wrong with the $sql_query
 			echo "MySQL statement failed to prepare";
 		}
 	}
-	$stmt->close();
+	$sql_query->close();
 } 
 else 
 {
-	// Something is wrong with the SQL statement, so you must check to make sure your accounts table exists with all 3 fields.
+	// something is wrong with the $sql_query
 	echo "MySQL statement failed to prepare";
 }
 $con->close();

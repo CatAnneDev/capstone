@@ -7,10 +7,10 @@
         printf("ID: %s  Name: %s", $row[0], $row[1]);  
     }
 
-    if ($stmt = $conn->prepare("INSERT INTO history (groupname, product_name, batch_number, status) VALUES (?, ?, ?, ?)"))
+    if ($sql_query = $conn->prepare("INSERT INTO history (groupname, product_name, batch_number, status) VALUES (?, ?, ?, ?)"))
     {
-        $stmt->bind_param("sssi", $_SESSION["groupname"], $_POST["product_name"], $_POST["batch_number"], $_POST['order_type']);
-        $stmt->execute();
+        $sql_query->bind_param("sssi", $_SESSION["groupname"], $_POST["product_name"], $_POST["batch_number"], $_POST['order_type']);
+        $sql_query->execute();
     }
 
     if (mysqli_query($conn, $sql)) {

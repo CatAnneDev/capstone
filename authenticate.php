@@ -18,18 +18,18 @@ if ( !isset($_POST["username"], $_POST["password"]) )
 }
 
 # prepare SQL prevents injection
-if ($stmt = $con->prepare("SELECT id, password, groupname, permission FROM accounts WHERE username = ?")) 
+if ($sql_query = $con->prepare("SELECT id, password, groupname, permission FROM accounts WHERE username = ?")) 
 {
 	# bind parameters (s = string)
-	$stmt->bind_param('s', $_POST["username"]);
-	$stmt->execute();
-	$stmt->store_result();
+	$sql_query->bind_param('s', $_POST["username"]);
+	$sql_query->execute();
+	$sql_query->store_result();
 
     # check if account exists
-    if ($stmt->num_rows > 0) 
+    if ($sql_query->num_rows > 0) 
     {
-        $stmt->bind_result($id, $password, $groupname, $permission);
-        $stmt->fetch();
+        $sql_query->bind_result($id, $password, $groupname, $permission);
+        $sql_query->fetch();
         # account exists. Check if password valid, then user is logged in and create a session
         if (password_verify($_POST["password"], $password)) 
         {
@@ -51,6 +51,6 @@ if ($stmt = $con->prepare("SELECT id, password, groupname, permission FROM accou
     {
         echo "Incorrect username and/or password!"; # invalid username
     }
-	$stmt->close();
+	$sql_query->close();
 }
 ?>
