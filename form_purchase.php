@@ -66,10 +66,20 @@ $form_rows = $conn->execute_query($sql, [$groupname]);
                 <tr>
                     <td><?= htmlspecialchars($row['product_name']) ?></td>
                     <td><?= htmlspecialchars($row['quantity']) ?></td>
-					<td><a href="delete_purchase.php?id=$product_id">Delete</a></td>
+					<?php $product_id = $row['id']; ?>
+					<td><a href="delete_purchase_item.php?id=<?= $row['id']?>">Delete</a></td>
                 </tr>
                 <?php endforeach ?>
             </table>
+        </div>
+		<!-- Submit Purchase Order -->
+        <div class="flex-wrapper">
+            <div class="submit_order">
+                <form action="index.php?page=log_order" method="post" autocomplete="off">
+					<input type="hidden" id="order_type" name="order_type" value="purchase">
+                    <button type="submit">Order Purchase</button>
+                </form>
+            </div>
         </div>
 	</body>
 </html>

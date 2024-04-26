@@ -66,7 +66,7 @@ $form_rows = $conn->execute_query($sql, [$groupname]);
                 <tr>
                     <td><?= htmlspecialchars($row['product_name']) ?></td>
                     <td><?= htmlspecialchars($row['quantity']) ?></td>
-					<td><a href="delete_delivery.php?id=$product_id">Delete</a></td>
+					<td><a href="delete_delivery_item.php?id=<?= $row['id']?>">Delete</a></td>
                 </tr>
                 <?php endforeach ?>
             </table>
@@ -76,11 +76,8 @@ $form_rows = $conn->execute_query($sql, [$groupname]);
         <div class="flex-wrapper">
             <div class="submit_order">
                 <form action="index.php?page=log_order" method="post" autocomplete="off">
-                    <?php
-                    // in progress
-                    $_POST['order_type'] = 'delivery';
-                    ?>
-                    <button type="submit" value="Order">Order</button>
+					<input type="hidden" id="order_type" name="order_type" value="delivery">
+                    <button type="submit">Order Delivery</button>
                 </form>
             </div>
         </div>
