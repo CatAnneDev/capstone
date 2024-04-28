@@ -9,7 +9,7 @@
     }
     elseif ($_POST['order_type'] == 'purchase')
     {
-        $sql_query = mysqli_query($conn, "SELECT * FROM form_delivery");
+        $sql_query = mysqli_query($conn, "SELECT * FROM form_purchase");
         $order_rows = $sql_query->fetch_all(MYSQLI_ASSOC);
     }
     

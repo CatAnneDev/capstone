@@ -91,6 +91,11 @@ $inventory_rows = $result->fetch_all(MYSQLI_ASSOC);
         }
     ?>
     </table>
+
+    <form action="index.php?page=export_csv" method="post" autocomplete="off">
+        <input type="hidden" id="export_table_name" name="export_table_name" value="inventory">
+        <button type="submit">Export as CSV</button>
+    </form>
 </div>
 
 

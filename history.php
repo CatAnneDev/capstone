@@ -104,6 +104,10 @@ if ($_SESSION["loggedin"] != true)
         }
         ?>
     </table>
+    <form action="index.php?page=export_csv" method="post" autocomplete="off">
+        <input type="hidden" id="export_table_name" name="export_table_name" value="history">
+        <button type="submit">Export as CSV</button>
+    </form>
 </div>
 
 <?=footer()?>
