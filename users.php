@@ -26,80 +26,71 @@ $account_rows = $conn->execute_query($sql, [$groupname]);
 <?=nav_header("Users")?>
 
 
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Users</title>
-		<link href="style.css" rel="stylesheet" type="text/css">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-	</head>
-	<body>
-        <div class="content-wrapper">
-			<div class="flex-wrapper">
-				<h1 class="h1-align">Users</h1>
-				
-				<!-- Groupadmin Access: Add User Modal -->
-				<?php
-				if ($_SESSION["permission"] == "groupadmin")
-				{
-					echo "<button id='modal-open'>Add User</button>";
-				}
-				?>
-				<div id="modal-box" class="modal">
-					<div class="modal-content">
-						<span class="modal-close">&times;</span>
-						<div class="form-content">
-							<h1>Create New Group User</h1>
-							<form action="index.php?page=users" method="post" autocomplete="off">
-								<input type="text" name="username" placeholder="Username" id="username" required>
-								<input type="text" name="password" placeholder="Password" id="password" required>
-								<div class="col-md-4">
-									<select id="permission" name="permission" class="form-control">
-										<option value="groupadmin">Group Admin</option>
-										<option value="manager">Manager</option>
-										<option value="customer">Customer</option>
-										<option value="inquiry">Inquiry</option>
-									</select>
-								</div>
-								<input type="submit" value="Add User">
-							</form>
+<div class="content-wrapper">
+	<div class="flex-wrapper">
+		<h1 class="h1-align">Users</h1>
+		
+		<!-- Groupadmin Access: Add User Modal -->
+		<?php
+		if ($_SESSION["permission"] == "groupadmin")
+		{
+			echo "<button id='modal-open'>Add User</button>";
+		}
+		?>
+		<div id="modal-box" class="modal">
+			<div class="modal-content">
+				<span class="modal-close">&times;</span>
+				<div class="form-content">
+					<h1>Create New Group User</h1>
+					<form action="index.php?page=users" method="post" autocomplete="off">
+						<input type="text" name="username" placeholder="Username" id="username" required>
+						<input type="text" name="password" placeholder="Password" id="password" required>
+						<div class="col-md-4">
+							<select id="permission" name="permission" class="form-control">
+								<option value="groupadmin">Group Admin</option>
+								<option value="manager">Manager</option>
+								<option value="customer">Customer</option>
+								<option value="inquiry">Inquiry</option>
+							</select>
 						</div>
-					</div>
+						<input type="submit" value="Add User">
+					</form>
 				</div>
 			</div>
+		</div>
+	</div>
 
-            <table>
-                <tr>
-                    <th>Username</th>
-                    <th>Permission</th>
-					<?php if($_SESSION["permission"] == "groupadmin"){echo "<th> </th>";} ?>
-                </tr>
-                <?php foreach($account_rows as $row): ?>
-                <tr>
-                    <td><?= htmlspecialchars($row['username']) ?></td>
-                    <td><?= htmlspecialchars($row['permission']) ?></td>
-					<?php 
-					if($_SESSION["permission"] == "groupadmin")
-						{
-							$user_id = $row['id'];
-							if($row['permission'] != "groupadmin")
-							{
-								echo <<<EOT
-								<td><a href="delete_user.php?id=$user_id">Delete</a></td>
-								EOT;
-							}
-							else
-							{
-								echo "<td> </td>";
-							}
-						} 
-					?>
-                </tr>
-                <?php endforeach ?>
-            </table>
-        </div>
-	</body>
-</html>
+	<table>
+		<tr>
+			<th>Username</th>
+			<th>Permission</th>
+			<?php if($_SESSION["permission"] == "groupadmin"){echo "<th> </th>";} ?>
+		</tr>
+		<?php foreach($account_rows as $row): ?>
+		<tr>
+			<td><?= htmlspecialchars($row['username']) ?></td>
+			<td><?= htmlspecialchars($row['permission']) ?></td>
+			<?php 
+			if($_SESSION["permission"] == "groupadmin")
+				{
+					$user_id = $row['id'];
+					if($row['permission'] != "groupadmin")
+					{
+						echo <<<EOT
+						<td><a href="delete_user.php?id=$user_id">Delete</a></td>
+						EOT;
+					}
+					else
+					{
+						echo "<td> </td>";
+					}
+				} 
+			?>
+		</tr>
+		<?php endforeach ?>
+	</table>
+</div>
+
 
 <?=footer()?>
 
@@ -188,7 +179,7 @@ if ($sql_query = $con->prepare("SELECT id, password, permission, groupname FROM 
 			$sql_query->bind_param("ssss", $_POST["username"], $password, $_POST["permission"], $_SESSION["groupname"]);
 			$sql_query->execute();
 
-			echo '<p class="php-notice">New user created.</p>';
+			header("Location: index.php?page=users");
 		} 
 		else 
 		{

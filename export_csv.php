@@ -1,4 +1,10 @@
 <?php
+// redirect non-users to login
+if ($_SESSION["loggedin"] != true)
+{
+    header("Location: index.php");
+}
+
 // receive MySQL table name in post
 $table_name = $_POST['export_table_name'];
 $sql_query = "SELECT * FROM $table_name";

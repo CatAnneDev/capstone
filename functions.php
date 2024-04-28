@@ -30,33 +30,33 @@ function unregistered_header($title)
 // Navigation header, if user is logged in
 function nav_header($title) 
 {
-echo <<<EOT
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>$title</title>
-		<link rel="stylesheet" href="style.css" type="text/css"/>
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-	</head>
-	<body>
-        <header>
-            <div class="content-wrapper">
-                <nav>
-                    <a href="index.php?page=inventory">Inventory</a>
-                    <a href="index.php?page=history">History</a>
-                    <a href="index.php?page=form_delivery">Delivery Form</a>
-                    <a href="index.php?page=form_purchase">Purchase Form</a>
-                    <a href="index.php?page=users">Users</a>
-                </nav>
-                <h1> </h1>
-                <div class="nav">
-                    <a href="index.php?page=logout">Logout</a>
+    echo <<<EOT
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="utf-8">
+            <title>$title</title>
+            <link rel="stylesheet" href="style.css" type="text/css"/>
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+        </head>
+        <body>
+            <header>
+                <div class="content-wrapper">
+                    <nav>
+                        <a href="index.php?page=inventory">Inventory</a>
+                        <a href="index.php?page=history">History</a>
+                        <a href="index.php?page=form_delivery">Delivery Form</a>
+                        <a href="index.php?page=form_purchase">Purchase Form</a>
+                        <a href="index.php?page=users">Users</a>
+                    </nav>
+                    <h1> </h1>
+                    <div class="nav">
+                        <a href="index.php?page=logout">Logout</a>
+                    </div>
                 </div>
-            </div>
-        </header>
-        <main>
-EOT;
+            </header>
+            <main>
+    EOT;
 }
 
 

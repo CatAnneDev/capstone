@@ -1,26 +1,14 @@
 <?php
-# options: purchase orders OR delivery orders
-# show history
-# export to xlsx
-
-// redirect non-users to login
-if ($_SESSION["loggedin"] != true)
-{
-    header("Location: index.php");
-}
-
-# purchase orders prep
-# for unique bath nuber in groupnae, order by largest ID first
-#   for unique entry in results
-#   print
-#   add pending -> coplete button that updates inentoryphp
-# spae out
-
-
-
+    // redirect non-users to login
+    if ($_SESSION["loggedin"] != true)
+    {
+        header("Location: index.php");
+    }
 ?>
 
+
 <?=nav_header("History")?>
+
 
 <div class="content-wrapper">
     <div class="flex-wrapper">
@@ -96,7 +84,29 @@ if ($_SESSION["loggedin"] != true)
                         <td><?= htmlspecialchars($row['id']) ?></td>
                         <td><?= htmlspecialchars($row['product_name']) ?></td>
                         <td><?= htmlspecialchars($row['quantity']) ?></td>
-                        <td><?= htmlspecialchars($row['status']) ?></td>
+                        <?php
+                        if ($row['status'] == "Pending")
+                        {
+                            // pending --> completed button
+                            ?>
+                            <td>
+                                <form action="index.php?page=history_status" method="post" autocomplete="off">
+                                    <input type="hidden" id="history_order_type" name="history_order_type" value="<?=$row['order_type']?>">
+                                    <input type="hidden" id="history_product_name" name="history_product_name" value="<?=$row['product_name']?>">
+                                    <input type="hidden" id="history_quantity" name="history_quantity" value="<?=$row['quantity']?>">
+                                    <input type="hidden" id="history_id" name="history_id" value="<?=$row['id']?>">
+                                    <input class="buttonless" type="submit" value="Pending - Submit Order"></input>
+                                </form>
+                            </td>
+                            <?php
+                        }
+                        else
+                        {
+                            ?>
+                            <td>Complete - <?= htmlspecialchars($row['status']) ?></td>
+                            <?php
+                        }
+                        ?>
                     </tr>
                 </table>
             <?php endforeach ?>
@@ -104,10 +114,15 @@ if ($_SESSION["loggedin"] != true)
         }
         ?>
     </table>
-    <form action="index.php?page=export_csv" method="post" autocomplete="off">
-        <input type="hidden" id="export_table_name" name="export_table_name" value="history">
-        <button type="submit">Export as CSV</button>
-    </form>
+    <div class="flex-wrapper">
+        <div class="submit_order">
+            <form action="index.php?page=export_csv" method="post" autocomplete="off">
+                <input type="hidden" id="export_table_name" name="export_table_name" value="history">
+                <button type="submit">Export as CSV</button>
+            </form>
+        </div>
+    </div>
 </div>
+
 
 <?=footer()?>

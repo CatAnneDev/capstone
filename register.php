@@ -1,25 +1,17 @@
 <?=unregistered_header("Register")?>
 
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Register</title>
-		<link href="style.css" rel="stylesheet" type="text/css">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-	</head>
-	<body>
-		<div class="form-content">
-			<h1>Register Group</h1>
-			<p class="form-redirect">  Already have an account? <a href="index.php?page=login">Login here</a></p>
-			<form action="index.php?page=register" method="post" autocomplete="off">
-				<input type="text" name="username" placeholder="Username" id="username" required>
-				<input type="password" name="password" placeholder="Password" id="password" required>
-				<input type="groupname" name="groupname" placeholder="Group Name" id="groupname" required>
-				<input type="submit" value="Register">
-			</form>
-		</div>
-	</body>
-</html>
+
+<div class="form-content">
+	<h1>Register Group</h1>
+	<p class="form-redirect">  Already have an account? <a href="index.php?page=login">Login here</a></p>
+	<form action="index.php?page=register" method="post" autocomplete="off">
+		<input type="text" name="username" placeholder="Username" id="username" required>
+		<input type="password" name="password" placeholder="Password" id="password" required>
+		<input type="groupname" name="groupname" placeholder="Group Name" id="groupname" required>
+		<input type="submit" value="Register">
+	</form>
+</div>
+
 
 <?=footer()?>
 

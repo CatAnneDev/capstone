@@ -13,76 +13,75 @@ if ($_SESSION["loggedin"] != true)
 
 // prep delivery
 $groupname = $_SESSION["groupname"];
-$sql = "SELECT * FROM form_delivery WHERE groupname = ?";
-$form_rows = $conn->execute_query($sql, [$groupname]);
+$sql_query = "SELECT * FROM form_delivery WHERE groupname = ?";
+$form_rows = $conn->execute_query($sql_query, [$groupname]);
 ?>
 
 
 <?=nav_header("Delivery Form")?>
 
 
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Users</title>
-		<link href="style.css" rel="stylesheet" type="text/css">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-	</head>
-	<body>
-        <div class="content-wrapper">
-			<div class="flex-wrapper">
-				<h1 class="h1-align">Delivery Form</h1>
-				
-				<!-- Customer Access: Add Delivery Item Modal -->
-				<?php
-				if ($_SESSION["permission"] == "customer" || $_SESSION["permission"] == "groupadmin")
-				{
-					echo "<button id='modal-open'>Add Item</button>";
-				}
-				?>
-				<div id="modal-box" class="modal">
-					<div class="modal-content">
-						<span class="modal-close">&times;</span>
-						<div class="form-content">
-							<h1>Add Delivery Item</h1>
-							<form action="index.php?page=form_delivery" method="post" autocomplete="off">
-								<input type="text" name="product_name" placeholder="Product Name" id="product_name" required autocomplete="on">
-								<input type="number" name="quantity" placeholder="Quantity" id="quantity" required>
-								<input type="submit" value="Add Item">
-							</form>
-						</div>
-					</div>
+<div class="content-wrapper">
+	<div class="flex-wrapper">
+		<h1 class="h1-align">Delivery Form</h1>
+		
+		<!-- Customer Access: Add Delivery Item Modal -->
+		<?php
+		if ($_SESSION["permission"] == "customer" || $_SESSION["permission"] == "groupadmin")
+		{
+			echo "<button id='modal-open'>Add Item</button>";
+		}
+		?>
+		<div id="modal-box" class="modal">
+			<div class="modal-content">
+				<span class="modal-close">&times;</span>
+				<div class="form-content">
+					<h1>Add Delivery Item</h1>
+					<form action="index.php?page=form_delivery" method="post" autocomplete="off">
+						<input type="text" name="product_name" placeholder="Product Name" id="product_name" required autocomplete="on">
+						<input type="number" name="quantity" placeholder="Quantity" id="quantity" required>
+						<input type="submit" value="Add Item">
+					</form>
 				</div>
 			</div>
+		</div>
+	</div>
 
-			<!-- Table of Items to Delivery -->
-            <table>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-					<th> </th>
-                </tr>
-                <?php foreach($form_rows as $row): ?>
-                <tr>
-                    <td><?= htmlspecialchars($row['product_name']) ?></td>
-                    <td><?= htmlspecialchars($row['quantity']) ?></td>
-					<td><a href="delete_delivery_item.php?id=<?= $row['id']?>">Delete</a></td>
-                </tr>
-                <?php endforeach ?>
-            </table>
-        </div>
+	<!-- Table of Items to Delivery -->
+	<table>
+		<tr>
+			<th>Product Name</th>
+			<th>Quantity</th>
+			<th> </th>
+		</tr>
+		<?php foreach($form_rows as $row): ?>
+		<tr>
+			<td><?= htmlspecialchars($row['product_name']) ?></td>
+			<td><?= htmlspecialchars($row['quantity']) ?></td>
+			<td><a href="delete_delivery_item.php?id=<?= $row['id']?>">Delete</a></td>
+		</tr>
+		<?php endforeach ?>
+	</table>
+</div>
 
-		<!-- Submit Delivery Order -->
-        <div class="flex-wrapper">
-            <div class="submit_order">
-                <form action="index.php?page=log_order" method="post" autocomplete="off">
-					<input type="hidden" id="order_type" name="order_type" value="delivery">
-                    <button type="submit">Order Delivery</button>
-                </form>
-            </div>
-        </div>
-	</body>
-</html>
+<!-- Submit Delivery Order -->
+<?php
+if ($form_rows->num_rows  > 0)
+{
+	?>
+	<div class="content-wrapper">
+		<div class="flex-wrapper">
+			<div class="submit_order">
+				<form action="index.php?page=log_order" method="post" autocomplete="off">
+					<input type="hidden" id="order_type" name="order_type" value="Delivery">
+					<button type="submit">Order Delivery</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<?php
+}
+?>
 
 
 <?=footer()?>
@@ -160,7 +159,7 @@ if ($sql_query = $con->prepare("SELECT id, product_name, quantity, groupname FRO
 			$sql_query->bind_param("sis", $_POST["product_name"], $_POST["quantity"], $_SESSION["groupname"]);
 			$sql_query->execute();
 
-			echo '<p class="php-notice">New product added.</p>';
+			header("Location: index.php?page=form_delivery");
 		} 
 		else 
 		{

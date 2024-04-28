@@ -108,36 +108,6 @@ footer {
 	align-items: center;
 	padding:10px;
 }
-.php-notice {
-	text-align: center;
-	color: var(--text-color);
-	background-color: var(--notice-color);
-	border-radius: 2px;
-}
-
-
-/* PAYPAL DESIGN */
-.paypal {
-	padding-bottom: 40px;
-}
-.paypal img {
-	border: 0px;
-}
-.paypal button {
-	display: inline-block;
-	padding: 10px 20px 7px 20px;
-	background-color: var(--paypal-color);
-	border-radius: 5px;
-	border: none;
-	cursor: pointer;
-	width: 215px;
-	transition-property: background-color;
-  	transition-duration: 2s;
-}
-.paypal button:hover {
-	background-color: var(--dull-paypal-color);
-}
-
 .form-redirect {
 	text-align: center;
 	color: var(--dull-text-color);
@@ -302,27 +272,38 @@ tr:hover {
 	padding: 0 15px;
 }
 .searchbar button {
-	width: 100px;
-	height: 50px;
-	margin-bottom: 20px;
-	padding: 0 15px;
+	min-width: 20%;
+	padding: 15px;
+    margin-top: 20px;
 	background-color: var(--primary-color1);
-    border: 0;
+	border: 0;
 	cursor: pointer;
 	font-weight: bold;
-	color: var(--background-color1);
-}
-.submit_order {
-	float: right;
+	color: #ffffff;
+	transition: background-color 0.2s;
 }
 .submit_order button {
-	width: 100px;
-	height: 50px;
-	margin-bottom: 20px;
-	padding: 0 15px;
+	float: right;
+	min-width: 20%;
+	padding: 15px;
+    margin-top: 20px;
 	background-color: var(--primary-color1);
-    border: 0;
+	border: 0;
 	cursor: pointer;
 	font-weight: bold;
-	color: var(--background-color1);
+	color: #ffffff;
+	transition: background-color 0.2s;
+}
+.submit_order:hover, .searchbar button:hover {
+	filter: brightness(1.5);
+}
+input.buttonless {
+	background: none;
+	color: blue;
+	text-decoration: underline;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
 }

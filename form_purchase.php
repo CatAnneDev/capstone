@@ -21,69 +21,67 @@ $form_rows = $conn->execute_query($sql, [$groupname]);
 <?=nav_header("Purchase Form")?>
 
 
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Users</title>
-		<link href="style.css" rel="stylesheet" type="text/css">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-	</head>
-	<body>
-        <div class="content-wrapper">
-			<div class="flex-wrapper">
-				<h1 class="h1-align">Purchase Form</h1>
-				
-				<!-- Manager Access: Add Purchase Item Modal -->
-				<?php
-				if ($_SESSION["permission"] == "groupadmin" || $_SESSION["permission"] == "manager")
-				{
-					echo "<button id='modal-open'>Add Item</button>";
-				}
-				?>
-				<div id="modal-box" class="modal">
-					<div class="modal-content">
-						<span class="modal-close">&times;</span>
-						<div class="form-content">
-							<h1>Add Purchase Item</h1>
-							<form action="index.php?page=form_purchase" method="post" autocomplete="off">
-								<input type="text" name="product_name" placeholder="Product Name" id="product_name" required>
-								<input type="number" name="quantity" placeholder="Quantity" id="quantity" required>
-								<input type="submit" value="Add Item">
-							</form>
-						</div>
-					</div>
+<div class="content-wrapper">
+	<div class="flex-wrapper">
+		<h1 class="h1-align">Purchase Form</h1>
+		
+		<!-- Manager Access: Add Purchase Item Modal -->
+		<?php
+		if ($_SESSION["permission"] == "groupadmin" || $_SESSION["permission"] == "manager")
+		{
+			echo "<button id='modal-open'>Add Item</button>";
+		}
+		?>
+		<div id="modal-box" class="modal">
+			<div class="modal-content">
+				<span class="modal-close">&times;</span>
+				<div class="form-content">
+					<h1>Add Purchase Item</h1>
+					<form action="index.php?page=form_purchase" method="post" autocomplete="off">
+						<input type="text" name="product_name" placeholder="Product Name" id="product_name" required>
+						<input type="number" name="quantity" placeholder="Quantity" id="quantity" required>
+						<input type="submit" value="Add Item">
+					</form>
 				</div>
 			</div>
+		</div>
+	</div>
 
-			<!-- Table of Items to Purchase -->
-            <table>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-					<th> </th>
-                </tr>
-                <?php foreach($form_rows as $row): ?>
-                <tr>
-                    <td><?= htmlspecialchars($row['product_name']) ?></td>
-                    <td><?= htmlspecialchars($row['quantity']) ?></td>
-					<?php $product_id = $row['id']; ?>
-					<td><a href="delete_purchase_item.php?id=<?= $row['id']?>">Delete</a></td>
-                </tr>
-                <?php endforeach ?>
-            </table>
-        </div>
-		<!-- Submit Purchase Order -->
-        <div class="flex-wrapper">
-            <div class="submit_order">
-                <form action="index.php?page=log_order" method="post" autocomplete="off">
-					<input type="hidden" id="order_type" name="order_type" value="purchase">
-                    <button type="submit">Order Purchase</button>
-                </form>
-            </div>
-        </div>
-	</body>
-</html>
-
+	<!-- Table of Items to Purchase -->
+	<table>
+		<tr>
+			<th>Product Name</th>
+			<th>Quantity</th>
+			<th> </th>
+		</tr>
+		<?php foreach($form_rows as $row): ?>
+		<tr>
+			<td><?= htmlspecialchars($row['product_name']) ?></td>
+			<td><?= htmlspecialchars($row['quantity']) ?></td>
+			<?php $product_id = $row['id']; ?>
+			<td><a href="delete_purchase_item.php?id=<?= $row['id']?>">Delete</a></td>
+		</tr>
+		<?php endforeach ?>
+	</table>
+</div>
+<!-- Submit Purchase Order -->
+<?php
+if ($form_rows->num_rows  > 0)
+{
+	?>
+	<div class="content-wrapper">
+		<div class="flex-wrapper">
+			<div class="submit_order">
+				<form action="index.php?page=log_order" method="post" autocomplete="off">
+					<input type="hidden" id="order_type" name="order_type" value="Purchase">
+					<button type="submit">Order Purchase</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<?php
+}
+?>
 
 <?=footer()?>
 
@@ -150,7 +148,7 @@ if ($sql_query = $con->prepare("SELECT id, product_name, quantity, groupname FRO
 	// check if inputted purchase product_name already exist
 	if ($sql_query->num_rows > 0) 
 	{
-		echo "This username already exists, please choose another.";
+		echo "This product already exists, please choose another.";
 	} 
 	else 
 	{
@@ -160,7 +158,7 @@ if ($sql_query = $con->prepare("SELECT id, product_name, quantity, groupname FRO
 			$sql_query->bind_param("sis", $_POST["product_name"], $_POST["quantity"], $_SESSION["groupname"]);
 			$sql_query->execute();
 
-			echo '<p class="php-notice">New product added.</p>';
+			header("Location: index.php?page=form_purchase");
 		} 
 		else 
 		{

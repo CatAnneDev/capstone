@@ -12,9 +12,9 @@
 
 <div class="content-wrapper">
     <div class="flex-wrapper">
-        <h1 class="h1-align">Confirmation</h1>
+        <h1 class="h1-align">Notice</h1>
     </div>
-    <p style="text-align:center">Order logged in history.</p>
+    <p style="text-align:center">Delivery not sent. Inadequate product amount.</p>
 </div>
 
 
