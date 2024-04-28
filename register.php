@@ -17,8 +17,6 @@
 
 
 <?php
-
-
 $DATABASE_HOST = "localhost";
 $DATABASE_USERNAME = "root";
 $DATABASE_PASSWORD = "";

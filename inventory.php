@@ -6,7 +6,8 @@ nav_header($site_title);
 
 
 // prep inventory table
-$result = mysqli_query($conn, "SELECT * FROM inventory");
+$groupname = $_SESSION["groupname"];
+$result = mysqli_query($conn, "SELECT * FROM inventory WHERE groupname = '$groupname'");
 $inventory_rows = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 

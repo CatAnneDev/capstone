@@ -76,7 +76,7 @@ function nav_employee($title)
                     <nav>
                         <a href="index.php?page=inventory">Inventory</a>
                         <a href="index.php?page=history">History</a>
-                        <a href="index.php?page=form_delivery">Delivery Form</a>
+                        <a href="index.php?page=form_delivery">Sales Order</a>
                         <a href="index.php?page=form_purchase">Purchase Form</a>
                     </nav>
                     <h1> </h1>
@@ -108,7 +108,7 @@ function nav_manager($title)
                     <nav>
                         <a href="index.php?page=inventory">Inventory</a>
                         <a href="index.php?page=history">History</a>
-                        <a href="index.php?page=form_delivery">Delivery Form</a>
+                        <a href="index.php?page=form_delivery">Sales Order</a>
                         <a href="index.php?page=form_purchase">Purchase Form</a>
                         <a href="index.php?page=users">Users</a>
                     </nav>
@@ -141,7 +141,7 @@ function nav_groupadmin($title)
                     <nav>
                         <a href="index.php?page=inventory">Inventory</a>
                         <a href="index.php?page=history">History</a>
-                        <a href="index.php?page=form_delivery">Delivery Form</a>
+                        <a href="index.php?page=form_delivery">Sales Order</a>
                         <a href="index.php?page=form_purchase">Purchase Form</a>
                         <a href="index.php?page=users">Users</a>
                     </nav>

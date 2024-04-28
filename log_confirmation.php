@@ -1,13 +1,7 @@
 <?php
-    // redirect non-users to login
-    if ($_SESSION["loggedin"] != true)
-    {
-        header("Location: index.php");
-    }
+    $site_title = "Inventory";
+    nav_header($site_title);
 ?>
-
-
-<?=nav_header("Confirmation")?>
 
 
 <div class="content-wrapper">

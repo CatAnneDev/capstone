@@ -7,10 +7,11 @@
     
     // add history product to inventory
     // if exists
+    $groupname = $_SESSION["groupname"];
     $history_product_name = $_POST['history_product_name'];
     $history_quantity = $_POST['history_quantity'];
     $history_id = $_POST['history_id'];
-    if ($sql_query = $conn->prepare("SELECT id FROM inventory WHERE product_name = ?"))
+    if ($sql_query = $conn->prepare("SELECT id FROM inventory WHERE groupname = '$groupname' AND product_name = ?"))
     {
         $sql_query->bind_param('s', $_POST["history_product_name"]);
         $sql_query->execute();
@@ -23,7 +24,7 @@
             $sql_query->fetch();
 
             // get quantity of existing inventory item
-            if ($sql_query_get_quantity = $conn->prepare("SELECT quantity FROM inventory WHERE id = ?"))
+            if ($sql_query_get_quantity = $conn->prepare("SELECT quantity FROM inventory WHERE groupname = '$groupname' AND id = ?"))
             {
                 $sql_query_get_quantity->bind_param('s', $inventory_id);
                 $sql_query_get_quantity->execute();
@@ -37,13 +38,12 @@
                     $new_quantity = $inventory_quantity + $history_quantity;
                     echo $new_quantity;
                     // update inventory table
-                    if($conn->query("UPDATE inventory SET quantity = $new_quantity WHERE product_name = '$history_product_name'"))
+                    if($conn->query("UPDATE inventory SET quantity = $new_quantity WHERE groupname = '$groupname' AND product_name = '$history_product_name'"))
                     {
-                        echo "Purchased";
-                        echo "Inventory updated.";
+                        echo "Purchased. Inventory updated.";
                     }
                 }
-                // if delivery, subtract
+                // if delivery / sales order, subtract
                 else
                 {
                     // fail if not enough to deliver
@@ -56,10 +56,9 @@
                     {
                         $new_quantity = $inventory_quantity - $history_quantity;
                         // update inventory table
-                        if($conn->query("UPDATE inventory SET quantity = $new_quantity WHERE product_name = '$history_product_name'"))
+                        if($conn->query("UPDATE inventory SET quantity = $new_quantity WHERE groupname = '$groupname' AND product_name = '$history_product_name'"))
                         {
-                            echo "Delivered";
-                            echo "Inventory updated.";
+                            echo "Delivered. Inventory updated.";
                         }
                     }
                 }
@@ -72,14 +71,14 @@
             // if purchase, insert new row into table
             if ($_POST['history_order_type'] == "Purchase")
             {
-                if ($sql_query_insert = $conn->prepare("INSERT INTO inventory (product_name, quantity) VALUES (?, ?)"))
+                if ($sql_query_insert = $conn->prepare("INSERT INTO inventory (product_name, quantity, groupname) VALUES (?, ?, ?)"))
                 {
-                    $sql_query_insert->bind_param("si", $history_product_name, $history_quantity);
+                    $sql_query_insert->bind_param("sis", $history_product_name, $history_quantity, $groupname);
                     $sql_query_insert->execute();
                     $sql_query_insert->close();
                 }
             }
-            // if delivery, fail
+            // if delivery / sales order, fail
             else
             {
                 header("Location: index.php?page=delivery_fail");

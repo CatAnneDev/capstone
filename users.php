@@ -1,9 +1,7 @@
 <?php
 // redirect non-users to login
-if ($_SESSION["loggedin"] != true)
-{
-    header("Location: index.php");
-}
+$site_title = "Users";
+nav_header($site_title);
 
 // (Manager) view a table of users
 // (GroupAdmin) add or remove users below GroupAdmin
@@ -21,9 +19,6 @@ $groupname = $_SESSION["groupname"];
 $sql = "SELECT * FROM accounts WHERE groupname = ?";
 $account_rows = $conn->execute_query($sql, [$groupname]);
 ?>
-
-
-<?=nav_header("Users")?>
 
 
 <div class="content-wrapper">

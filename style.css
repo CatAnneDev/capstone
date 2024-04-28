@@ -1,16 +1,4 @@
-/*
-:root{
-	--background-color1: #282b30;
-	--background-color2: #1e2124;
-	--primary-color1:  	#7289da;
-	--primary-color2: #4f62a5;
-	--text-color: #ffffff;
-	--dull-text-color: #aaaaaa;
-	--paypal-color: #f7be3a;
-	--dull-paypal-color: #b9730a;
-}
-*/
-:root{
+:root {
 	--background-color1: #eeeeee;
 	--background-color2: #dddddd;
 	--background-color3: #aaaaaa;
@@ -108,11 +96,6 @@ footer {
 	align-items: center;
 	padding:10px;
 }
-.form-redirect {
-	text-align: center;
-	color: var(--dull-text-color);
-}
-
 
 /* FORM DESIGN - REGISTER, LOGIN, ADD INVENTORY, ADD USERS */
 .form-content a, .login a {
@@ -174,6 +157,11 @@ footer {
 .form-content form input[type="submit"]:hover {
 	filter: brightness(1.5);
 }
+.form-redirect {
+	text-align: center;
+	color: var(--dull-text-color);
+}
+
 
 
 /* TABLES */
@@ -246,6 +234,7 @@ tr:hover {
 	font-weight: bold;
 	color: #ffffff;
 	transition: background-color 0.2s;
+	border-radius: 8px;
 }
 #modal-open:hover {
 	filter: brightness(1.5);
@@ -281,6 +270,7 @@ tr:hover {
 	font-weight: bold;
 	color: #ffffff;
 	transition: background-color 0.2s;
+	border-radius: 8px;
 }
 .submit_order button {
 	float: right;
@@ -293,6 +283,7 @@ tr:hover {
 	font-weight: bold;
 	color: #ffffff;
 	transition: background-color 0.2s;
+	border-radius: 8px;
 }
 .submit_order:hover, .searchbar button:hover {
 	filter: brightness(1.5);

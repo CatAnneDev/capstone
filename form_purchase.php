@@ -1,32 +1,6 @@
 <?php
-# choose purchase orders or delivery orders
-# add item to purchase/deliver
-# fill out quantity
-# ability to add more items
-# submit
-
 $site_title = "Purchase Form";
-// redirect non-users to login
-if ($_SESSION["loggedin"] != true)
-{
-    header("Location: index.php");
-}
-elseif ($_SESSION["permission"] == "Inquiry")
-{
-    nav_inquiry($site_title);
-}
-elseif ($_SESSION["permission"] == "Employee")
-{
-    nav_employee($site_title);
-}
-elseif ($_SESSION["permission"] == "Manager")
-{
-    nav_manager($site_title);
-}
-elseif ($_SESSION["permission"] == "GroupAdmin")
-{
-    nav_groupadmin($site_title);
-}
+nav_header($site_title);
 
 // prep purchase order
 $groupname = $_SESSION["groupname"];
@@ -39,13 +13,8 @@ $form_rows = $conn->execute_query($sql, [$groupname]);
 	<div class="flex-wrapper">
 		<h1 class="h1-align">Purchase Form</h1>
 		
-		<!-- Manager Access: Add Purchase Item Modal -->
-		<?php
-		if ($_SESSION["permission"] == "GroupAdmin" || $_SESSION["permission"] == "Manager")
-		{
-			echo "<button id='modal-open'>Add Item</button>";
-		}
-		?>
+		<!-- Add Purchase Item Modal -->
+		<button id='modal-open'>Add Item</button>
 		<div id="modal-box" class="modal">
 			<div class="modal-content">
 				<span class="modal-close">&times;</span>

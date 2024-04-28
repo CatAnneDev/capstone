@@ -1,34 +1,8 @@
 <?php
-# choose purchase orders or delivery orders
-# add item to purchase/deliver
-# fill out quantity
-# ability to add more items
-# submit
+$site_title = "Sales Order";
+nav_header($site_title);
 
-$site_title = "Delivery Form";
-// redirect non-users to login
-if ($_SESSION["loggedin"] != true)
-{
-    header("Location: index.php");
-}
-elseif ($_SESSION["permission"] == "Inquiry")
-{
-    nav_inquiry($site_title);
-}
-elseif ($_SESSION["permission"] == "Employee")
-{
-    nav_employee($site_title);
-}
-elseif ($_SESSION["permission"] == "Manager")
-{
-    nav_manager($site_title);
-}
-elseif ($_SESSION["permission"] == "GroupAdmin")
-{
-    nav_groupadmin($site_title);
-}
-
-// prep delivery
+// prep sales order
 $groupname = $_SESSION["groupname"];
 $sql_query = "SELECT * FROM form_delivery WHERE groupname = ?";
 $form_rows = $conn->execute_query($sql_query, [$groupname]);
@@ -37,20 +11,15 @@ $form_rows = $conn->execute_query($sql_query, [$groupname]);
 
 <div class="content-wrapper">
 	<div class="flex-wrapper">
-		<h1 class="h1-align">Delivery Form</h1>
+		<h1 class="h1-align">Sales Order</h1>
 		
-		<!-- Customer Access: Add Delivery Item Modal -->
-		<?php
-		if ($_SESSION["permission"] == "Employee" || $_SESSION["permission"] == "GroupAdmin")
-		{
-			echo "<button id='modal-open'>Add Item</button>";
-		}
-		?>
+		<!-- Add Delivery Item Modal -->
+		<button id='modal-open'>Add Item</button>
 		<div id="modal-box" class="modal">
 			<div class="modal-content">
 				<span class="modal-close">&times;</span>
 				<div class="form-content">
-					<h1>Add Delivery Item</h1>
+					<h1>Add Sales Order Item</h1>
 					<form action="index.php?page=form_delivery" method="post" autocomplete="off">
 						<input type="text" name="product_name" placeholder="Product Name" id="product_name" required autocomplete="on">
 						<input type="number" name="quantity" placeholder="Quantity" id="quantity" required>
@@ -61,7 +30,7 @@ $form_rows = $conn->execute_query($sql_query, [$groupname]);
 		</div>
 	</div>
 
-	<!-- Table of Items to Delivery -->
+	<!-- Table of Items to Delivery / Sales Order -->
 	<table>
 		<tr>
 			<th>Product Name</th>
@@ -141,7 +110,7 @@ if (mysqli_connect_errno())
 	exit("Failed to connect to MySQL: " . mysqli_connect_error());
 }
 
-// check if data submitted exists from delivery form
+// check if data submitted exists from Sales Order
 if (!isset($_POST["product_name"], $_POST["quantity"])) 
 {
 	exit("");

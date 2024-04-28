@@ -17,6 +17,6 @@
     }
     else 
     {
-        echo "Error: deleting delivery item fail";
+        echo "Error: deleting sales order item fail";
     }
 ?>

@@ -1,26 +1,8 @@
 <?php
     $site_title = "History";
-    // redirect non-users to login
-    if ($_SESSION["loggedin"] != true)
-    {
-        header("Location: index.php");
-    }
-    elseif ($_SESSION["permission"] == "Inquiry")
-    {
-        nav_inquiry($site_title);
-    }
-    elseif ($_SESSION["permission"] == "Employee")
-    {
-        nav_employee($site_title);
-    }
-    elseif ($_SESSION["permission"] == "Manager")
-    {
-        nav_manager($site_title);
-    }
-    elseif ($_SESSION["permission"] == "GroupAdmin")
-    {
-        nav_groupadmin($site_title);
-    }
+    nav_header($site_title);
+
+    $groupname = $_SESSION["groupname"];
 ?>
 
 
@@ -43,7 +25,7 @@
         if(isset($_POST['search']))
         {
             $filtervalues = htmlspecialchars($_POST['search']);
-            $sql_query = "SELECT * FROM history WHERE CONCAT(id,batch_number,product_name,quantity,status) LIKE '%$filtervalues%' ";
+            $sql_query = "SELECT * FROM history WHERE groupname = '$groupname' AND CONCAT(id,batch_number,product_name,quantity,status) LIKE '%$filtervalues%' ";
             $sql_query_run = mysqli_query($conn, $sql_query);
 
             if(mysqli_num_rows($sql_query_run) > 0)
@@ -73,7 +55,7 @@
             {
                 ?>
                     <tr>
-                        <td colspan="3">Searched Record Not Found</td>
+                        <td><p style="text-align:center">Searched Record Not Found</p></td>
                     </tr>
                 <?php
             }
@@ -81,7 +63,6 @@
         else
         {
             // History if No Search
-            $groupname = $_SESSION["groupname"];
             $sql = "SELECT * FROM history WHERE groupname = ?";
             $history_orders = $conn->execute_query($sql, [$groupname]);
             foreach($history_orders as $row): ?>
@@ -103,18 +84,26 @@
                         <?php
                         if ($row['status'] == "Pending")
                         {
-                            // pending --> completed button
-                            ?>
-                            <td>
-                                <form action="index.php?page=history_status" method="post" autocomplete="off">
-                                    <input type="hidden" id="history_order_type" name="history_order_type" value="<?=$row['order_type']?>">
-                                    <input type="hidden" id="history_product_name" name="history_product_name" value="<?=$row['product_name']?>">
-                                    <input type="hidden" id="history_quantity" name="history_quantity" value="<?=$row['quantity']?>">
-                                    <input type="hidden" id="history_id" name="history_id" value="<?=$row['id']?>">
-                                    <input class="buttonless" type="submit" value="Pending - Submit Order"></input>
-                                </form>
-                            </td>
-                            <?php
+                            // if inquiry, do not give completion button
+                            if ($_SESSION["permission"] == "Inquiry")
+                            {
+                                echo "<td>Incomplete - Pending</td>";
+                            }
+                            // show pending --> completed button
+                            else
+                            {
+                                ?>
+                                <td>
+                                    <form action="index.php?page=history_status" method="post" autocomplete="off">
+                                        <input type="hidden" id="history_order_type" name="history_order_type" value="<?=$row['order_type']?>">
+                                        <input type="hidden" id="history_product_name" name="history_product_name" value="<?=$row['product_name']?>">
+                                        <input type="hidden" id="history_quantity" name="history_quantity" value="<?=$row['quantity']?>">
+                                        <input type="hidden" id="history_id" name="history_id" value="<?=$row['id']?>">
+                                        <input class="buttonless" type="submit" value="Pending - Submit Order"></input>
+                                    </form>
+                                </td>
+                                <?php
+                            }
                         }
                         else
                         {
