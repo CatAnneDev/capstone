@@ -78,12 +78,14 @@
                         <th>ID</th>
                         <th>Product Name</th>
                         <th>Quantity</th>
+                        <th>Order Type</th>
                         <th>Status</th>
                     </tr>
                     <tr>
                         <td><?= htmlspecialchars($row['id']) ?></td>
                         <td><?= htmlspecialchars($row['product_name']) ?></td>
                         <td><?= htmlspecialchars($row['quantity']) ?></td>
+                        <td><?= htmlspecialchars($row['order_type']) ?></td>
                         <?php
                         if ($row['status'] == "Pending")
                         {
