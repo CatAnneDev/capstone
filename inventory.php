@@ -1,19 +1,14 @@
 <?php
 require_once('index.php');
 
-// redirect non-users to login
-if ($_SESSION["loggedin"] != true)
-{
-    header("Location: index.php");
-}
+$site_title = "Inventory";
+nav_header($site_title);
+
 
 // prep inventory table
 $result = mysqli_query($conn, "SELECT * FROM inventory");
 $inventory_rows = $result->fetch_all(MYSQLI_ASSOC);
 ?>
-
-
-<?=nav_header("Inventory")?>
 
 
 <div class="content-wrapper">

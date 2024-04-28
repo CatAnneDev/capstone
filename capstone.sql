@@ -40,11 +40,11 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`id`, `username`, `password`, `permission`, `groupname`) VALUES
-(1, 'testing', '$2y$10$Q07W5LhI9ugBLQrQ/pzosOiXmld5pwSGmfsTnce4484ltjhP8D6.y', 'groupadmin', 'TestGroup'),
-(4, 'dfd', '$2y$10$pihVnwFH8/xl0Ji1f9TjlelB7kmH9xHHtWM/h9BHLiLWtHr0I2q5.', 'groupadmin', 'df'),
-(5, 'inquiry', '$2y$10$ZevNen4HRAUP6Ba3omByOeZkx8LSN1eNXhniM.DT9H099rn94pcIq', 'inquiry', 'TestGroup'),
-(7, 'manager', '$2y$10$vjgy3qXYdm.GXnGc7V/k8u8sxhQQc8xUHkWwCO6cQWx.UJnZC6a/i', 'manager', 'TestGroup'),
-(8, 'customer', '$2y$10$EPSockOutL5U7Hv2udhKAOu9GNjQj3ydXSgQQhwf8RUGIK4qOk3CO', 'customer', 'TestGroup');
+(1, 'testing', '$2y$10$Q07W5LhI9ugBLQrQ/pzosOiXmld5pwSGmfsTnce4484ltjhP8D6.y', 'GroupAdmin', 'TestGroup'),
+(4, 'dfd', '$2y$10$pihVnwFH8/xl0Ji1f9TjlelB7kmH9xHHtWM/h9BHLiLWtHr0I2q5.', 'GroupAdmin', 'df'),
+(5, 'Inquiry', '$2y$10$ZevNen4HRAUP6Ba3omByOeZkx8LSN1eNXhniM.DT9H099rn94pcIq', 'Inquiry', 'TestGroup'),
+(7, 'Manager', '$2y$10$vjgy3qXYdm.GXnGc7V/k8u8sxhQQc8xUHkWwCO6cQWx.UJnZC6a/i', 'Manager', 'TestGroup'),
+(8, 'Employee', '$2y$10$EPSockOutL5U7Hv2udhKAOu9GNjQj3ydXSgQQhwf8RUGIK4qOk3CO', 'Employee', 'TestGroup');
 
 -- --------------------------------------------------------
 

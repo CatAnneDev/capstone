@@ -1,13 +1,27 @@
 <?php
+    $site_title = "Confirmation";
     // redirect non-users to login
     if ($_SESSION["loggedin"] != true)
     {
         header("Location: index.php");
     }
+    elseif ($_SESSION["permission"] == "Inquiry")
+    {
+        nav_inquiry($site_title);
+    }
+    elseif ($_SESSION["permission"] == "Employee")
+    {
+        nav_employee($site_title);
+    }
+    elseif ($_SESSION["permission"] == "Manager")
+    {
+        nav_manager($site_title);
+    }
+    elseif ($_SESSION["permission"] == "GroupAdmin")
+    {
+        nav_groupadmin($site_title);
+    }
 ?>
-
-
-<?=nav_header("Confirmation")?>
 
 
 <div class="content-wrapper">

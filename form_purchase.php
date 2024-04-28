@@ -5,10 +5,27 @@
 # ability to add more items
 # submit
 
+$site_title = "Purchase Form";
 // redirect non-users to login
 if ($_SESSION["loggedin"] != true)
 {
     header("Location: index.php");
+}
+elseif ($_SESSION["permission"] == "Inquiry")
+{
+    nav_inquiry($site_title);
+}
+elseif ($_SESSION["permission"] == "Employee")
+{
+    nav_employee($site_title);
+}
+elseif ($_SESSION["permission"] == "Manager")
+{
+    nav_manager($site_title);
+}
+elseif ($_SESSION["permission"] == "GroupAdmin")
+{
+    nav_groupadmin($site_title);
 }
 
 // prep purchase order
@@ -18,16 +35,13 @@ $form_rows = $conn->execute_query($sql, [$groupname]);
 ?>
 
 
-<?=nav_header("Purchase Form")?>
-
-
 <div class="content-wrapper">
 	<div class="flex-wrapper">
 		<h1 class="h1-align">Purchase Form</h1>
 		
 		<!-- Manager Access: Add Purchase Item Modal -->
 		<?php
-		if ($_SESSION["permission"] == "groupadmin" || $_SESSION["permission"] == "manager")
+		if ($_SESSION["permission"] == "GroupAdmin" || $_SESSION["permission"] == "Manager")
 		{
 			echo "<button id='modal-open'>Add Item</button>";
 		}

@@ -77,7 +77,7 @@ if ($sql_query = $con->prepare("SELECT id, password, permission, groupname FROM 
 		{
 			// hash the passwords so they are not plaintext in database
 			$password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-			$permission = "groupadmin";
+			$permission = "GroupAdmin";
 			$sql_query->bind_param("ssss", $_POST["username"], $password, $permission, $_POST["groupname"]);
 			$sql_query->execute();
 			echo "You have successfully registered. You can now login.";

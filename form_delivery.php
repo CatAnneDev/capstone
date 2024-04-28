@@ -5,10 +5,27 @@
 # ability to add more items
 # submit
 
+$site_title = "Delivery Form";
 // redirect non-users to login
 if ($_SESSION["loggedin"] != true)
 {
     header("Location: index.php");
+}
+elseif ($_SESSION["permission"] == "Inquiry")
+{
+    nav_inquiry($site_title);
+}
+elseif ($_SESSION["permission"] == "Employee")
+{
+    nav_employee($site_title);
+}
+elseif ($_SESSION["permission"] == "Manager")
+{
+    nav_manager($site_title);
+}
+elseif ($_SESSION["permission"] == "GroupAdmin")
+{
+    nav_groupadmin($site_title);
 }
 
 // prep delivery
@@ -18,16 +35,13 @@ $form_rows = $conn->execute_query($sql_query, [$groupname]);
 ?>
 
 
-<?=nav_header("Delivery Form")?>
-
-
 <div class="content-wrapper">
 	<div class="flex-wrapper">
 		<h1 class="h1-align">Delivery Form</h1>
 		
 		<!-- Customer Access: Add Delivery Item Modal -->
 		<?php
-		if ($_SESSION["permission"] == "customer" || $_SESSION["permission"] == "groupadmin")
+		if ($_SESSION["permission"] == "Employee" || $_SESSION["permission"] == "GroupAdmin")
 		{
 			echo "<button id='modal-open'>Add Item</button>";
 		}

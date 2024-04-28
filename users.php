@@ -5,13 +5,13 @@ if ($_SESSION["loggedin"] != true)
     header("Location: index.php");
 }
 
-// (manager) view a table of users
-// (groupadmin) add or remove users below groupadmin
-if ($_SESSION["permission"] == "customer")
+// (Manager) view a table of users
+// (GroupAdmin) add or remove users below GroupAdmin
+if ($_SESSION["permission"] == "Employee")
 {
     header("Location: index.php?page=forms");
 }
-if ($_SESSION["permission"] == "inquiry")
+if ($_SESSION["permission"] == "Inquiry")
 {
     header("Location: index.php?page=inventory");
 }
@@ -30,9 +30,9 @@ $account_rows = $conn->execute_query($sql, [$groupname]);
 	<div class="flex-wrapper">
 		<h1 class="h1-align">Users</h1>
 		
-		<!-- Groupadmin Access: Add User Modal -->
+		<!-- GroupAdmin Access: Add User Modal -->
 		<?php
-		if ($_SESSION["permission"] == "groupadmin")
+		if ($_SESSION["permission"] == "GroupAdmin")
 		{
 			echo "<button id='modal-open'>Add User</button>";
 		}
@@ -47,10 +47,10 @@ $account_rows = $conn->execute_query($sql, [$groupname]);
 						<input type="text" name="password" placeholder="Password" id="password" required>
 						<div class="col-md-4">
 							<select id="permission" name="permission" class="form-control">
-								<option value="groupadmin">Group Admin</option>
-								<option value="manager">Manager</option>
-								<option value="customer">Customer</option>
-								<option value="inquiry">Inquiry</option>
+								<option value="GroupAdmin">Group Admin</option>
+								<option value="Manager">Manager</option>
+								<option value="Employee">Employee</option>
+								<option value="Inquiry">Inquiry</option>
 							</select>
 						</div>
 						<input type="submit" value="Add User">
@@ -64,17 +64,17 @@ $account_rows = $conn->execute_query($sql, [$groupname]);
 		<tr>
 			<th>Username</th>
 			<th>Permission</th>
-			<?php if($_SESSION["permission"] == "groupadmin"){echo "<th> </th>";} ?>
+			<?php if($_SESSION["permission"] == "GroupAdmin"){echo "<th> </th>";} ?>
 		</tr>
 		<?php foreach($account_rows as $row): ?>
 		<tr>
 			<td><?= htmlspecialchars($row['username']) ?></td>
 			<td><?= htmlspecialchars($row['permission']) ?></td>
 			<?php 
-			if($_SESSION["permission"] == "groupadmin")
+			if($_SESSION["permission"] == "GroupAdmin")
 				{
 					$user_id = $row['id'];
-					if($row['permission'] != "groupadmin")
+					if($row['permission'] != "GroupAdmin")
 					{
 						echo <<<EOT
 						<td><a href="delete_user.php?id=$user_id">Delete</a></td>
