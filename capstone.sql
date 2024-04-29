@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2024 at 02:43 AM
+-- Generation Time: Apr 29, 2024 at 02:08 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,10 +41,10 @@ CREATE TABLE `accounts` (
 
 INSERT INTO `accounts` (`id`, `username`, `password`, `permission`, `groupname`) VALUES
 (1, 'testing', '$2y$10$Q07W5LhI9ugBLQrQ/pzosOiXmld5pwSGmfsTnce4484ltjhP8D6.y', 'GroupAdmin', 'TestGroup'),
-(4, 'dfd', '$2y$10$pihVnwFH8/xl0Ji1f9TjlelB7kmH9xHHtWM/h9BHLiLWtHr0I2q5.', 'GroupAdmin', 'df'),
-(5, 'Inquiry', '$2y$10$ZevNen4HRAUP6Ba3omByOeZkx8LSN1eNXhniM.DT9H099rn94pcIq', 'Inquiry', 'TestGroup'),
-(7, 'Manager', '$2y$10$vjgy3qXYdm.GXnGc7V/k8u8sxhQQc8xUHkWwCO6cQWx.UJnZC6a/i', 'Manager', 'TestGroup'),
-(8, 'Employee', '$2y$10$EPSockOutL5U7Hv2udhKAOu9GNjQj3ydXSgQQhwf8RUGIK4qOk3CO', 'Employee', 'TestGroup');
+(9, 'inquiryTest', '$2y$10$32LDzMKbs.oGXQiFeXE5Muj0tl77D9jIf0jJhjkGt6NWIEVSMncTa', 'Inquiry', 'TestGroup'),
+(10, 'managerTest', '$2y$10$kJ0WxrAvLuYBxhkbfXiwEOVBlxXJcgyxeUKCJrWjVPB3Epg.RcIGi', 'Manager', 'TestGroup'),
+(14, 'Kirksville', '$2y$10$oDF3.k8Gqk1MeEJdcSp/y.VWdDowyJTPYADSB7s/QgOy//5yJ2hxW', 'GroupAdmin', 'Kirksville'),
+(15, 'employeeTest', '$2y$10$8oJNGYZKjdLTX/3RjlrpY.yOEGMujjEmFgGvCNLCIkLRKodbC0gYW', 'Employee', 'TestGroup');
 
 -- --------------------------------------------------------
 
@@ -97,19 +97,17 @@ CREATE TABLE `history` (
 CREATE TABLE `inventory` (
   `id` int(11) NOT NULL,
   `product_name` varchar(50) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `groupname` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`id`, `product_name`, `quantity`) VALUES
-(1, 'bearings', 5),
-(2, 'shirt', 15),
-(3, 'panths', 25),
-(4, 'shoes', 101),
-(5, 'test', 5);
+INSERT INTO `inventory` (`id`, `product_name`, `quantity`, `groupname`) VALUES
+(27, 'Bearings', 6, 'Kirksville'),
+(28, 'Pants M', 2, 'TestGroup');
 
 --
 -- Indexes for dumped tables
@@ -153,7 +151,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `form_delivery`
@@ -171,13 +169,13 @@ ALTER TABLE `form_purchase`
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
