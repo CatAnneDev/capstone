@@ -8,7 +8,7 @@
     $id = $_GET['id'];
     require_once('index.php');
     // sql to delete a user from table accounts where $_GET id = accounts id
-    $sql_query = "DELETE FROM accounts WHERE id = $id"; 
+    $sql_query = "DELETE FROM accounts WHERE account_id = $id"; 
 
     if (mysqli_query($conn, $sql_query)) 
     {

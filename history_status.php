@@ -11,7 +11,7 @@
     $history_product_name = $_POST['history_product_name'];
     $history_quantity = $_POST['history_quantity'];
     $history_id = $_POST['history_id'];
-    if ($sql_query = $conn->prepare("SELECT id FROM inventory WHERE groupname = '$groupname' AND product_name = ?"))
+    if ($sql_query = $conn->prepare("SELECT inventory_id FROM inventory WHERE groupname = '$groupname' AND product_name = ?"))
     {
         $sql_query->bind_param('s', $_POST["history_product_name"]);
         $sql_query->execute();
@@ -24,7 +24,7 @@
             $sql_query->fetch();
 
             // get quantity of existing inventory item
-            if ($sql_query_get_quantity = $conn->prepare("SELECT quantity FROM inventory WHERE groupname = '$groupname' AND id = ?"))
+            if ($sql_query_get_quantity = $conn->prepare("SELECT quantity FROM inventory WHERE groupname = '$groupname' AND inventory_id = ?"))
             {
                 $sql_query_get_quantity->bind_param('s', $inventory_id);
                 $sql_query_get_quantity->execute();
@@ -90,14 +90,14 @@
         // redirect to history.php
         if($_POST['history_order_type'] == 'Delivery')
         {
-            if($conn->query("UPDATE history SET status = 'Delivered' WHERE id = '$history_id'"))
+            if($conn->query("UPDATE history SET status = 'Delivered' WHERE history_id = '$history_id'"))
             {
                 echo "History updated.";
             }
         }
         elseif ($_POST['history_order_type'] == 'Purchase')
         {
-            if($conn->query("UPDATE history SET status = 'Purchased' WHERE id = '$history_id'"))
+            if($conn->query("UPDATE history SET status = 'Purchased' WHERE history_id = '$history_id'"))
             {
                 echo "History updated.";
             }

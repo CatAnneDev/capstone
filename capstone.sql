@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2024 at 02:08 AM
+-- Generation Time: Apr 29, 2024 at 04:41 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `accounts` (
-  `id` int(11) NOT NULL,
+  `account_id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `permission` varchar(50) NOT NULL,
@@ -39,12 +39,12 @@ CREATE TABLE `accounts` (
 -- Dumping data for table `accounts`
 --
 
-INSERT INTO `accounts` (`id`, `username`, `password`, `permission`, `groupname`) VALUES
-(1, 'testing', '$2y$10$Q07W5LhI9ugBLQrQ/pzosOiXmld5pwSGmfsTnce4484ltjhP8D6.y', 'GroupAdmin', 'TestGroup'),
-(9, 'inquiryTest', '$2y$10$32LDzMKbs.oGXQiFeXE5Muj0tl77D9jIf0jJhjkGt6NWIEVSMncTa', 'Inquiry', 'TestGroup'),
-(10, 'managerTest', '$2y$10$kJ0WxrAvLuYBxhkbfXiwEOVBlxXJcgyxeUKCJrWjVPB3Epg.RcIGi', 'Manager', 'TestGroup'),
-(14, 'Kirksville', '$2y$10$oDF3.k8Gqk1MeEJdcSp/y.VWdDowyJTPYADSB7s/QgOy//5yJ2hxW', 'GroupAdmin', 'Kirksville'),
-(15, 'employeeTest', '$2y$10$8oJNGYZKjdLTX/3RjlrpY.yOEGMujjEmFgGvCNLCIkLRKodbC0gYW', 'Employee', 'TestGroup');
+INSERT INTO `accounts` (`account_id`, `username`, `password`, `permission`, `groupname`) VALUES
+(18, 'testing', '$2y$10$zm4Qs3ShYgLt/ZGfB7sFSOqqs1nml6Ei.sTAYWuqkV0NbtQgmUn5.', 'GroupAdmin', 'TestingGroup'),
+(19, 'nemoAdmin', '$2y$10$5v9k8F3URqAGjEQPeawvQeXRl0b3GtMkxWonABqbJ.Qwwyz4G8OIS', 'GroupAdmin', 'Nemo'),
+(20, 'inquiryTest', '$2y$10$3NHEXNj0WXhuh5kQlbSAdOVj041WT6W8cXra7r9fIChcPFnvQUw26', 'Inquiry', 'TestingGroup'),
+(21, 'employeeTest', '$2y$10$IF23/ESCyBhVLGaFjnV7ZOYmDJfvJbFHO3ztMaMNqObffiplZKttO', 'Employee', 'TestingGroup'),
+(22, 'managerTest', '$2y$10$d25samekyseMCzvNc7O.o.JA97j0UbewyKPsW/Yx7qyyFD6iDUd6.', 'Manager', 'TestingGroup');
 
 -- --------------------------------------------------------
 
@@ -53,7 +53,7 @@ INSERT INTO `accounts` (`id`, `username`, `password`, `permission`, `groupname`)
 --
 
 CREATE TABLE `form_delivery` (
-  `id` int(11) NOT NULL,
+  `delivery_id` int(11) NOT NULL,
   `product_name` varchar(50) NOT NULL,
   `quantity` int(11) NOT NULL,
   `groupname` varchar(50) NOT NULL
@@ -66,7 +66,7 @@ CREATE TABLE `form_delivery` (
 --
 
 CREATE TABLE `form_purchase` (
-  `id` int(11) NOT NULL,
+  `purchase_id` int(11) NOT NULL,
   `product_name` varchar(50) NOT NULL,
   `quantity` int(11) NOT NULL,
   `groupname` varchar(50) NOT NULL
@@ -79,7 +79,7 @@ CREATE TABLE `form_purchase` (
 --
 
 CREATE TABLE `history` (
-  `id` int(11) NOT NULL,
+  `history_id` int(11) NOT NULL,
   `groupname` varchar(50) NOT NULL,
   `batch_number` varchar(15) NOT NULL,
   `product_name` varchar(50) NOT NULL,
@@ -95,19 +95,11 @@ CREATE TABLE `history` (
 --
 
 CREATE TABLE `inventory` (
-  `id` int(11) NOT NULL,
+  `inventory_id` int(11) NOT NULL,
   `product_name` varchar(50) NOT NULL,
   `quantity` int(11) NOT NULL,
   `groupname` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Dumping data for table `inventory`
---
-
-INSERT INTO `inventory` (`id`, `product_name`, `quantity`, `groupname`) VALUES
-(27, 'Bearings', 6, 'Kirksville'),
-(28, 'Pants M', 2, 'TestGroup');
 
 --
 -- Indexes for dumped tables
@@ -117,31 +109,31 @@ INSERT INTO `inventory` (`id`, `product_name`, `quantity`, `groupname`) VALUES
 -- Indexes for table `accounts`
 --
 ALTER TABLE `accounts`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`account_id`);
 
 --
 -- Indexes for table `form_delivery`
 --
 ALTER TABLE `form_delivery`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`delivery_id`);
 
 --
 -- Indexes for table `form_purchase`
 --
 ALTER TABLE `form_purchase`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`purchase_id`);
 
 --
 -- Indexes for table `history`
 --
 ALTER TABLE `history`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`history_id`);
 
 --
 -- Indexes for table `inventory`
 --
 ALTER TABLE `inventory`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`inventory_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -151,31 +143,31 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `form_delivery`
 --
 ALTER TABLE `form_delivery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `delivery_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `form_purchase`
 --
 ALTER TABLE `form_purchase`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

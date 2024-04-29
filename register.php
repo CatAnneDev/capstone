@@ -56,7 +56,7 @@ if (strlen($_POST["password"]) < 5 || strlen($_POST["password"]) > 20)
 }
 
 // check if account with inputted username already exists
-if ($sql_query = $con->prepare("SELECT id, password, permission, groupname FROM accounts WHERE username = ?")) 
+if ($sql_query = $con->prepare("SELECT account_id, password, permission, groupname FROM accounts WHERE username = ?")) 
 {
 	// bind parameters (s = string), 
 	$sql_query->bind_param("s", $_POST["username"]);
@@ -78,7 +78,7 @@ if ($sql_query = $con->prepare("SELECT id, password, permission, groupname FROM 
 			$permission = "GroupAdmin";
 			$sql_query->bind_param("ssss", $_POST["username"], $password, $permission, $_POST["groupname"]);
 			$sql_query->execute();
-			echo "You have successfully registered. You can now login.";
+			echo "<p style='text-align:center'>You have successfully registered. You can now login.</p>";
 		} 
 		else 
 		{

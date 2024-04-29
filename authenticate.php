@@ -18,7 +18,7 @@ if ( !isset($_POST["username"], $_POST["password"]) )
 }
 
 // prepare SQL prevents injection
-if ($sql_query = $con->prepare("SELECT id, password, groupname, permission FROM accounts WHERE username = ?")) 
+if ($sql_query = $con->prepare("SELECT account_id, password, groupname, permission FROM accounts WHERE username = ?")) 
 {
 	// bind parameters (s = string)
 	$sql_query->bind_param('s', $_POST["username"]);

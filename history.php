@@ -26,7 +26,7 @@
         if(isset($_POST['search']))
         {
             $filtervalues = htmlspecialchars($_POST['search']);
-            $sql_query = "SELECT * FROM history WHERE groupname = '$groupname' AND CONCAT(id,batch_number,product_name,quantity,status) LIKE '%$filtervalues%' ";
+            $sql_query = "SELECT * FROM history WHERE groupname = '$groupname' AND CONCAT(batch_number,product_name,quantity,status) LIKE '%$filtervalues%' ";
             $sql_query_run = mysqli_query($conn, $sql_query);
 
             if(mysqli_num_rows($sql_query_run) > 0)
@@ -37,16 +37,46 @@
                     <p class="flex-wrapper">B# <?= htmlspecialchars($row['batch_number']) ?></p>
                     <table>
                         <tr>
-                            <th>ID</th>
                             <th>Product Name</th>
                             <th>Quantity</th>
+                            <th>Order Type</th>
                             <th>Status</th>
                         </tr>
                         <tr>
-                            <td><?= htmlspecialchars($row['id']) ?></td>
                             <td><?= htmlspecialchars($row['product_name']) ?></td>
                             <td><?= htmlspecialchars($row['quantity']) ?></td>
-                            <td><?= htmlspecialchars($row['status']) ?></td>
+                            <td><?= htmlspecialchars($row['order_type']) ?></td>
+                            <?php
+                            if ($row['status'] == "Pending")
+                            {
+                                // if inquiry, do not give completion button
+                                if ($_SESSION["permission"] == "Inquiry")
+                                {
+                                    echo "<td>Incomplete - Pending</td>";
+                                }
+                                // show pending --> completed button
+                                else
+                                {
+                                    ?>
+                                    <td>
+                                        <form action="index.php?page=history_status" method="post" autocomplete="off">
+                                            <input type="hidden" id="history_order_type" name="history_order_type" value="<?=$row['order_type']?>">
+                                            <input type="hidden" id="history_product_name" name="history_product_name" value="<?=$row['product_name']?>">
+                                            <input type="hidden" id="history_quantity" name="history_quantity" value="<?=$row['quantity']?>">
+                                            <input type="hidden" id="history_id" name="history_id" value="<?=$row['history_id']?>">
+                                            <input class="buttonless" type="submit" value="Pending - Submit Order"></input>
+                                        </form>
+                                    </td>
+                                    <?php
+                                }
+                            }
+                            else
+                            {
+                                ?>
+                                <td>Complete - <?= htmlspecialchars($row['status']) ?></td>
+                                <?php
+                            }
+                            ?>
                         </tr>
                     </table>
                     <?php
@@ -71,14 +101,12 @@
                 <p class="flex-wrapper">B# <?= htmlspecialchars($row['batch_number']) ?></p>
                 <table>
                     <tr>
-                        <th>ID</th>
                         <th>Product Name</th>
                         <th>Quantity</th>
                         <th>Order Type</th>
                         <th>Status</th>
                     </tr>
                     <tr>
-                        <td><?= htmlspecialchars($row['id']) ?></td>
                         <td><?= htmlspecialchars($row['product_name']) ?></td>
                         <td><?= htmlspecialchars($row['quantity']) ?></td>
                         <td><?= htmlspecialchars($row['order_type']) ?></td>
@@ -99,7 +127,7 @@
                                         <input type="hidden" id="history_order_type" name="history_order_type" value="<?=$row['order_type']?>">
                                         <input type="hidden" id="history_product_name" name="history_product_name" value="<?=$row['product_name']?>">
                                         <input type="hidden" id="history_quantity" name="history_quantity" value="<?=$row['quantity']?>">
-                                        <input type="hidden" id="history_id" name="history_id" value="<?=$row['id']?>">
+                                        <input type="hidden" id="history_id" name="history_id" value="<?=$row['history_id']?>">
                                         <input class="buttonless" type="submit" value="Pending - Submit Order"></input>
                                     </form>
                                 </td>

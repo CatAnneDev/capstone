@@ -42,7 +42,7 @@ $form_rows = $conn->execute_query($sql_query, [$groupname]);
 		<tr>
 			<td><?= htmlspecialchars($row['product_name']) ?></td>
 			<td><?= htmlspecialchars($row['quantity']) ?></td>
-			<td><a href="delete_delivery_item.php?id=<?= $row['id']?>">Delete</a></td>
+			<td><a href="delete_delivery_item.php?id=<?= $row['delivery_id']?>">Delete</a></td>
 		</tr>
 		<?php endforeach ?>
 	</table>
@@ -123,7 +123,7 @@ if (strlen($_POST["product_name"]) < 3 || strlen($_POST["product_name"]) > 30)
 }
 
 // prepare sql to avoid injection
-if ($sql_query = $con->prepare("SELECT id, product_name, quantity, groupname FROM form_delivery WHERE product_name = ?")) 
+if ($sql_query = $con->prepare("SELECT delivery_id, product_name, quantity, groupname FROM form_delivery WHERE product_name = ?")) 
 {
 	// bind parameters (s = string)
 	$sql_query->bind_param("s", $_POST["product_name"]);

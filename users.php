@@ -69,7 +69,7 @@ $account_rows = $conn->execute_query($sql, [$groupname]);
 			<?php 
 			if($_SESSION["permission"] == "GroupAdmin")
 				{
-					$user_id = $row['id'];
+					$user_id = $row['account_id'];
 					if($row['permission'] != "GroupAdmin")
 					{
 						echo <<<EOT
@@ -153,7 +153,7 @@ if (strlen($_POST["password"]) < 5 || strlen($_POST["password"]) > 20)
 }
 
 // prepare statement to avoid injection
-if ($sql_query = $con->prepare("SELECT id, password, permission, groupname FROM accounts WHERE username = ?")) 
+if ($sql_query = $con->prepare("SELECT account_id, password, permission, groupname FROM accounts WHERE username = ?")) 
 {
 	// bind parameters (s = string), 
 	$sql_query->bind_param("s", $_POST["username"]);

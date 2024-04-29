@@ -33,7 +33,7 @@ $inventory_rows = $result->fetch_all(MYSQLI_ASSOC);
         if(isset($_POST['search']))
         {
             $filtervalues = htmlspecialchars($_POST['search']);
-            $sql_query = "SELECT * FROM inventory WHERE groupname = '$groupname' AND CONCAT(id,product_name) LIKE '%$filtervalues%' ";
+            $sql_query = "SELECT * FROM inventory WHERE groupname = '$groupname' AND CONCAT(quantity,product_name) LIKE '%$filtervalues%' ";
             $sql_query_run = mysqli_query($conn, $sql_query);
 
             if(mysqli_num_rows($sql_query_run) > 0)
@@ -41,7 +41,6 @@ $inventory_rows = $result->fetch_all(MYSQLI_ASSOC);
                 ?>
                 <table>
                 <tr>
-                    <th>ID</th>
                     <th>Product Name</th>
                     <th>Quantity</th>
                 </tr>
@@ -50,7 +49,6 @@ $inventory_rows = $result->fetch_all(MYSQLI_ASSOC);
                     {
                         ?>
                         <tr>
-                        <td><?= htmlspecialchars($row['id']) ?></td>
                         <td><?= htmlspecialchars($row['product_name']) ?></td>
                         <td><?= htmlspecialchars($row['quantity']) ?></td>
                         </tr>
@@ -72,13 +70,11 @@ $inventory_rows = $result->fetch_all(MYSQLI_ASSOC);
             <!-- Inventory Table if No Search -->
             <table>
                 <tr>
-                    <th>ID</th>
                     <th>Product Name</th>
                     <th>Quantity</th>
                 </tr>
                 <?php foreach($inventory_rows as $row): ?>
                 <tr>
-                    <td><?= htmlspecialchars($row['id']) ?></td>
                     <td><?= htmlspecialchars($row['product_name']) ?></td>
                     <td><?= htmlspecialchars($row['quantity']) ?></td>
                 </tr>
