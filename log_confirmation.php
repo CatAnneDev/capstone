@@ -1,6 +1,7 @@
 <?php
     $site_title = "Inventory";
-    nav_header($site_title);
+    $username = $_SESSION["username"];
+    nav_header($site_title, $username);
 ?>
 
 

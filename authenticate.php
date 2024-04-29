@@ -35,11 +35,11 @@ if ($sql_query = $con->prepare("SELECT id, password, groupname, permission FROM 
         {
             session_regenerate_id();
             $_SESSION["loggedin"] = TRUE;
-            $_SESSION["name"] = $_POST["username"];
+            $_SESSION["username"] = $_POST["username"];
             $_SESSION["id"] = $id;
             $_SESSION["permission"] = $permission;
             $_SESSION["groupname"] = $groupname;
-            echo "Welcome " . $_SESSION["name"] . "!";
+            echo "Welcome " . $_SESSION["username"] . "!";
             header("location: index.php?page=inventory"); // redirect
         } 
         else 

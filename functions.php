@@ -29,7 +29,7 @@ function unregistered_header($title)
 
 // Navigation header, if user is logged in
 // inquriy views only inventory and history
-function nav_inquiry($title) 
+function nav_inquiry($title, $username) 
 {
     echo <<<EOT
     <!DOCTYPE html>
@@ -50,6 +50,7 @@ function nav_inquiry($title)
                     <h1> </h1>
                     <div class="nav">
                         <a href="index.php?page=logout">Logout</a>
+                        <i class="fas fa-user"></i><p>$username</p>
                     </div>
                 </div>
             </header>
@@ -59,7 +60,7 @@ function nav_inquiry($title)
 
 // Navigation header, if user is logged in
 // employee views inventory, history, and orders
-function nav_employee($title) 
+function nav_employee($title, $username) 
 {
     echo <<<EOT
     <!DOCTYPE html>
@@ -82,6 +83,7 @@ function nav_employee($title)
                     <h1> </h1>
                     <div class="nav">
                         <a href="index.php?page=logout">Logout</a>
+                        <i class="fas fa-user"></i><p>$username</p>
                     </div>
                 </div>
             </header>
@@ -91,7 +93,7 @@ function nav_employee($title)
 
 // Navigation header, if user is logged in
 // manager views inventory, history, orders, and users
-function nav_manager($title) 
+function nav_manager($title, $username) 
 {
     echo <<<EOT
     <!DOCTYPE html>
@@ -115,6 +117,7 @@ function nav_manager($title)
                     <h1> </h1>
                     <div class="nav">
                         <a href="index.php?page=logout">Logout</a>
+                        <i class="fas fa-user"></i><p>$username</p>
                     </div>
                 </div>
             </header>
@@ -124,7 +127,7 @@ function nav_manager($title)
 
 // Navigation header, if user is logged in
 // manager views inventory, history, orders, and users
-function nav_groupadmin($title) 
+function nav_groupadmin($title, $username) 
 {
     echo <<<EOT
     <!DOCTYPE html>
@@ -148,6 +151,7 @@ function nav_groupadmin($title)
                     <h1> </h1>
                     <div class="nav">
                         <a href="index.php?page=logout">Logout</a>
+                        <i class="fas fa-user"></i><p>$username</p>
                     </div>
                 </div>
             </header>
@@ -155,7 +159,7 @@ function nav_groupadmin($title)
     EOT;
 }
 
-function nav_header($title) 
+function nav_header($title, $username) 
 {
     // redirect non-users to login
     if ($_SESSION["loggedin"] != true)
@@ -164,19 +168,19 @@ function nav_header($title)
     }
     elseif ($_SESSION["permission"] == "Inquiry")
     {
-        nav_inquiry($title);
+        nav_inquiry($title, $username);
     }
     elseif ($_SESSION["permission"] == "Employee")
     {
-        nav_employee($title);
+        nav_employee($title, $username);
     }
     elseif ($_SESSION["permission"] == "Manager")
     {
-        nav_manager($title);
+        nav_manager($title, $username);
     }
     elseif ($_SESSION["permission"] == "GroupAdmin")
     {
-        nav_groupadmin($title);
+        nav_groupadmin($title, $username);
     }
 }
 

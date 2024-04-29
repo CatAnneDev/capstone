@@ -1,7 +1,8 @@
 <?php
 // redirect non-users to login
 $site_title = "Users";
-nav_header($site_title);
+$username = $_SESSION["username"];
+nav_header($site_title, $username);
 
 // (Manager) view a table of users
 // (GroupAdmin) add or remove users below GroupAdmin

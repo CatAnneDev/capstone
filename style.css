@@ -41,6 +41,16 @@ h1, h2, h3, h4, h5 {
 header {
 	background-color: var(--primary-color1);
 }
+header p, header i {
+	font-family: roboto, "helvetica neue", Arial, sans-serif;
+	padding: 10px 5px 10px 0;
+	color: var(--background-color1);
+	font-weight: bold;
+}
+header i {
+	padding-left: 20px;
+	padding-right: 5px;
+}
 header .content-wrapper {
 	display: flex;
 }

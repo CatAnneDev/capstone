@@ -2,7 +2,8 @@
 require_once('index.php');
 
 $site_title = "Inventory";
-nav_header($site_title);
+$username = $_SESSION["username"];
+nav_header($site_title, $username);
 
 
 // prep inventory table
@@ -32,7 +33,7 @@ $inventory_rows = $result->fetch_all(MYSQLI_ASSOC);
         if(isset($_POST['search']))
         {
             $filtervalues = htmlspecialchars($_POST['search']);
-            $sql_query = "SELECT * FROM inventory WHERE CONCAT(id,product_name) LIKE '%$filtervalues%' ";
+            $sql_query = "SELECT * FROM inventory WHERE groupname = '$groupname' AND CONCAT(id,product_name) LIKE '%$filtervalues%' ";
             $sql_query_run = mysqli_query($conn, $sql_query);
 
             if(mysqli_num_rows($sql_query_run) > 0)

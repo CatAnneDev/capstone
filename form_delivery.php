@@ -1,6 +1,7 @@
 <?php
 $site_title = "Sales Order";
-nav_header($site_title);
+$username = $_SESSION["username"];
+nav_header($site_title, $username);
 
 // prep sales order
 $groupname = $_SESSION["groupname"];
@@ -22,7 +23,7 @@ $form_rows = $conn->execute_query($sql_query, [$groupname]);
 					<h1>Add Sales Order Item</h1>
 					<form action="index.php?page=form_delivery" method="post" autocomplete="off">
 						<input type="text" name="product_name" placeholder="Product Name" id="product_name" required autocomplete="on">
-						<input type="number" name="quantity" placeholder="Quantity" id="quantity" required>
+						<input type="number" name="quantity" placeholder="Quantity" id="quantity" min="1" required>
 						<input type="submit" value="Add Item">
 					</form>
 				</div>

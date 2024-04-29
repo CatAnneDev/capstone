@@ -7,7 +7,15 @@ if ($_SESSION["loggedin"] != true)
 
 // receive MySQL table name in post
 $table_name = $_POST['export_table_name'];
-$sql_query = "SELECT * FROM $table_name";
+if ($table_name == "inventory")
+{
+    $sql_query = "SELECT product_name, quantity FROM $table_name"; 
+}
+elseif ($table_name == "history")
+{
+    $sql_query = "SELECT batch_number, product_name, quantity, status, order_type FROM $table_name";
+}
+
 $sql_query_run = mysqli_query($conn, $sql_query);
 
 // generate the number of columns and have the first row (header) be the names of the fields from the MySQL table
